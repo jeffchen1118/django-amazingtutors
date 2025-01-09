@@ -25,7 +25,9 @@ SECRET_KEY = 'django-insecure-@+s5ka^&e!_6l7h+6!5w2#lm27yrc(@4542#o-u1326z+2l7vo
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = [
+    'amazingtutors-3f0b6cb3b188.herokuapp.com',
+]
 
 CSRF_TRUSTED_ORIGINS = [
     'https://*.codeinstitute-ide.net',
