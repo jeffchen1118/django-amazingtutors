@@ -44,3 +44,12 @@ class Lesson_section(models.Model):
 
     def __str__(self):
         return self.title
+
+
+class Note(models.Model):
+    title = models.ForeignKey(
+        Lesson_section, on_delete=models.CASCADE, related_name="notes"
+    )
+    author = models.ForeignKey(User, on_delete=models.CASCADE, related_name="notes")
+    body = models.TextField()
+    created_on = models.DateTimeField(auto_now_add=True)
