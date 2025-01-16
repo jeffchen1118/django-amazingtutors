@@ -1,13 +1,14 @@
-from django.http import HttpResponse
+from django.views import generic
+
+from .models import Lesson
+
 
 # Create your views here.
-# class my_lesson(TemplateView):
-#     """
-#     Displays the home page.
-#     """
+class LessonList(generic.ListView):
+    """
+    Displays the home page.
+    """
 
-#     template_name = 'index.html'
-
-
-def my_lesson(request):
-    return HttpResponse("Hello, world. You're at the lesson index.")
+    queryset = Lesson.objects.all()
+    template_name = "lesson_list.html"
+    paginate_by = 3
