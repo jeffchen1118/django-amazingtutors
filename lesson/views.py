@@ -10,5 +10,5 @@ class LessonList(generic.ListView):
     """
 
     queryset = Lesson.objects.all()
-    template_name = "lesson_list.html"
+    template_name = "lesson/index.html"
     paginate_by = 3
