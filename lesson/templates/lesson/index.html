@@ -18,7 +18,7 @@
                                     <p class="author">Author: {{ lesson.author }}</p>
                                 </div>
                             </div>
-                            <a href="#" class="lesson-link">
+                            <a href="{% url 'lesson_detail' lesson.slug %}" class="lesson-link">
                                 <h2 class="card-title">{{ lesson.title }}</h2>
                                 <p class="card-text">{{ lesson.excerpt }}</p>
                             </a>
