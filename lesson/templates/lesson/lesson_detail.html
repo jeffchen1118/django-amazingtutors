@@ -23,14 +23,36 @@
             <div class="card-body">
                 <!-- The lesson content goes inside the card-text. -->
                 <!-- Use the | safe filter inside the template tags -->
-                <!-- render the lesson_section content in order : asked AI for views adjustment-->
-                {% for section in lesson_sections|dictsort:"order" %}
+                <!-- render the lesson_section content in order -->
+                {% for section in lesson_sections %}
                 <p class="card-text">
                     <h3 class="text-center">{{ section.title }}</h3>
                     {{ section.content | safe }}
                 </p>
                 <hr />
-                <hr />
+                <!-- Displaying Note of the User debug via AI -->
+                <div class="row">
+                    {% with note_found=False %}
+                    {% for note in notes %}
+                    {% if note.title == section.title %}
+                    <div class="card mb-4 mt-3">
+                        <h6><em>{{ user }}</em>'s notes:</h6>
+                        <div class="card-body">
+                            {{ note.body | safe }}
+                        </div>
+                        <div class="card-footer text-muted">
+                            {{ note.created_on }}
+                        </div>
+                    </div>
+                    {% with note_found=True %}
+                    {% endwith %}
+                    {% endif %}
+                    {% endfor %}
+                    {% if not note_found %}
+                    <p>No notes found for this section.</p>
+                    {% endif %}
+                    {% endwith %}
+                </div>
                 {% endfor %}
             </div>
         </div>
