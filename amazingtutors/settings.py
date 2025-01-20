@@ -54,6 +54,7 @@ INSTALLED_APPS = [
     "cloudinary_storage",
     "cloudinary",
     "lesson",
+    "about",
 ]
 
 # Static files (CSS, JavaScript, Images)

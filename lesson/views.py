@@ -31,9 +31,10 @@ def lesson_detail(request, slug):
 
     queryset = Lesson.objects.filter(status=1)
     lesson = get_object_or_404(queryset, slug=slug)
+    lesson_sections = lesson.sections.all().order_by("order")
 
     return render(
         request,
         "lesson/lesson_detail.html",
-        {"lesson": lesson},
+        {"lesson": lesson, "lesson_sections": lesson_sections},
     )

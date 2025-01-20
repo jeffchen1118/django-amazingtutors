@@ -21,11 +21,17 @@
     <div class="row">
         <div class="col card mb-4  mt-3 left  top">
             <div class="card-body">
-                <!-- The post content goes inside the card-text. -->
+                <!-- The lesson content goes inside the card-text. -->
                 <!-- Use the | safe filter inside the template tags -->
+                <!-- render the lesson_section content in order : asked AI for views adjustment-->
+                {% for section in lesson_sections|dictsort:"order" %}
                 <p class="card-text">
-                    {{ lesson.content | safe }}
+                    <h3 class="text-center">{{ section.title }}</h3>
+                    {{ section.content | safe }}
                 </p>
+                <hr />
+                <hr />
+                {% endfor %}
             </div>
         </div>
     </div>
