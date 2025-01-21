@@ -40,7 +40,7 @@ def lesson_detail(request, slug):
         note_form = NoteForm(request.POST)
         if note_form.is_valid():
             note = note_form.save(commit=False)
-            note.title = lesson_sections.get(id=request.POST.get("section_id"))
+            # note.title = lesson_sections.get(id=request.POST.get("section_id"))
             note.author = request.user
             note.body = request.POST.get("body")
             note.save()
@@ -63,34 +63,34 @@ def lesson_detail(request, slug):
     )
 
 
-# def edit_note(request, note_id):
-#     """
-#     Edit a :model:`lesson.Note`.
+def edit_note(request, note_id):
+    """
+    Edit a :model:`lesson.Note`.
 
-#     **Context**
+    **Context**
 
-#     ``note``
-#         An instance of :model:`lesson.Note`.
+    ``note``
+        An instance of :model:`lesson.Note`.
 
-#     **Template:**
+    **Template:**
 
-#     :template:`lesson/edit_note.html`
-#     """
+    :template:`lesson/edit_note.html`
+    """
 
-#     note = get_object_or_404(Note, id=note_id)
+    note = get_object_or_404(Note, id=note_id)
 
-#     if request.method == "POST":
-#         note_form = NoteForm(request.POST, instance=note)
-#         if note_form.is_valid():
-#             note = note_form.save(commit=False)
-#             note.save()
-#             messages.success(request, "Note updated successfully.")
-#             return HttpResponseRedirect(
-#                 reverse("lesson:lesson_detail", args=[note.title.lesson.slug])
-#             )
+    if request.method == "POST":
+        note_form = NoteForm(request.POST, instance=note)
+        if note_form.is_valid():
+            note = note_form.save(commit=False)
+            note.save()
+            messages.success(request, "Note updated successfully.")
+            return HttpResponseRedirect(
+                reverse("lesson:lesson_detail", args=[note.title.lesson.slug])
+            )
 
-#     note_form = NoteForm(instance=note)
+    note_form = NoteForm(instance=note)
 
-#     return render(
-#         request, "lesson/edit_note.html", {"note": note, "note_form": note_form}
-#     )
+    return render(
+        request, "lesson/edit_note.html", {"note": note, "note_form": note_form}
+    )

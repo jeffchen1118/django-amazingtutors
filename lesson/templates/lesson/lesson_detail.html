@@ -35,28 +35,29 @@
                 <!-- Displaying Note of the User -->
                 {% for note in notes %}
                 <!-- <h6><em>{{ user }}</em>'s notes:</h6> -->
-                <button class="btn btn-edit btn-sm float-end" data-bs-toggle="modal" data-bs-target="#editNoteModal{{ note.id }}">{{ user }}'s Note</button>
+                <button class="btn btn-edit btn-sm float-end" data-bs-toggle="modal"
+                    data-bs-target="#editNoteModal{{ note.id }}">{{ user }}'s Note</button>
                 <!-- Modal -->
-                <!-- <div class="modal fade" id="editNoteModal{{ note.id }}" tabindex="-1" aria-labelledby="editNoteModalLabel{{ note.id }}" aria-hidden="true">
+                <div class="modal fade" id="editNoteModal{{ note.id }}" tabindex="-1"
+                    aria-labelledby="editNoteModalLabel{{ note.id }}" aria-hidden="true">
                     <div class="modal-dialog">
                         <div class="modal-content">
                             <div class="modal-header">
                                 <h5 class="modal-title" id="editNoteModalLabel{{ note.id }}">Edit Note</h5>
-                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                    aria-label="Close"></button>
                             </div>
                             <div class="modal-body">
-                                <form method="post" action="{% url 'edit_note' note.id %}">
+                                <form method="post">
                                     {% csrf_token %}
-                                    <div class="mb-3">
-                                        <label for="noteBody{{ note.id }}" class="form-label">Note</label>
-                                        <textarea class="form-control" id="noteBody{{ note.id }}" name="body" rows="3">{{ note.body }}</textarea>
-                                    </div>
+                                    {{ note_form | crispy }}
+                                    {% csrf_token %}
                                     <button type="submit" class="btn btn-primary">Save changes</button>
                                 </form>
                             </div>
                         </div>
                     </div>
-                </div> -->
+                </div>
                 {% if note.title|lower == section.title|lower %}
                 <div class="card-body">
                     {{ note.body | safe }}
