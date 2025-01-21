@@ -25,6 +25,6 @@ class Lesson_sectionAdmin(SummernoteModelAdmin):
 
 @admin.register(Note)
 class NoteAdmin(SummernoteModelAdmin):
-    list_display = ("title", "author", "created_on")
+    list_display = ("title", "author", "updated_on")
     search_fields = ["title", "body"]
     summernote_fields = ("body",)

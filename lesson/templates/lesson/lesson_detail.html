@@ -1,5 +1,6 @@
 {% extends 'base.html' %} {% block content %}
 {% load static %}
+{% load crispy_forms_tags %}
 
 <div class="masthead">
     <div class="container">
@@ -25,35 +26,48 @@
                 <!-- Use the | safe filter inside the template tags -->
                 <!-- render the lesson_section content in order -->
                 {% for section in lesson_sections %}
+                <!-- <p>debug {{ section }}</p> -->
                 <p class="card-text">
-                    <h3 class="text-center">{{ section.title }}</h3>
-                    {{ section.content | safe }}
+                <h3 class="text-center mt-5">{{ section.title }}</h3>
+                {{ section.content | safe }}
                 </p>
                 <hr />
-                <!-- Displaying Note of the User debug via AI -->
-                <!-- <div class="row">
-                    {% with note_found=False %}
-                    {% for note in notes %}
-                    {% if note.title == section.title %}
-                    <div class="card mb-4 mt-3">
-                        <h6><em>{{ user }}</em>'s notes:</h6>
-                        <div class="card-body">
-                            {{ note.body | safe }}
-                        </div>
-                        <div class="card-footer text-muted">
-                            {{ note.created_on }}
+                <!-- Displaying Note of the User -->
+                {% for note in notes %}
+                <!-- <h6><em>{{ user }}</em>'s notes:</h6> -->
+                <button class="btn btn-edit btn-sm float-end" data-bs-toggle="modal" data-bs-target="#editNoteModal{{ note.id }}">{{ user }}'s Note</button>
+                <!-- Modal -->
+                <!-- <div class="modal fade" id="editNoteModal{{ note.id }}" tabindex="-1" aria-labelledby="editNoteModalLabel{{ note.id }}" aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="editNoteModalLabel{{ note.id }}">Edit Note</h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+                                <form method="post" action="{% url 'edit_note' note.id %}">
+                                    {% csrf_token %}
+                                    <div class="mb-3">
+                                        <label for="noteBody{{ note.id }}" class="form-label">Note</label>
+                                        <textarea class="form-control" id="noteBody{{ note.id }}" name="body" rows="3">{{ note.body }}</textarea>
+                                    </div>
+                                    <button type="submit" class="btn btn-primary">Save changes</button>
+                                </form>
+                            </div>
                         </div>
                     </div>
-                    {% with note_found=True %}
-                    {% endwith %}
-                    {% endif %}
-                    {% endfor %}
-                    {% if not note_found %}
-                    <p>No notes found for this section.</p>
-                    {% endif %}
-                    {% endwith %}
                 </div> -->
+                {% if note.title|lower == section.title|lower %}
+                <div class="card-body">
+                    {{ note.body | safe }}
+                </div>
+                <div class="card-footer text-muted">
+                    {{ note.created_on }}
+                </div>
+                {% endif %}
                 {% endfor %}
+                {% endfor %}
+
             </div>
         </div>
     </div>
