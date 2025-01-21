@@ -1,4 +1,5 @@
-{% extends 'base.html' %} {% block content %}
+{% extends 'base.html' %} 
+{% block content %}
 {% load static %}
 {% load crispy_forms_tags %}
 
@@ -20,21 +21,15 @@
 
 <div class="container">
     <div class="row">
-        <div class="col card mb-4  mt-3 left  top">
+        <div class="col card mb-4 mt-3 left top">
             <div class="card-body">
-                <!-- The lesson content goes inside the card-text. -->
-                <!-- Use the | safe filter inside the template tags -->
-                <!-- render the lesson_section content in order -->
-                {% for section in lesson_sections %}
-                <!-- <p>debug {{ section }}</p> -->
                 <p class="card-text">
-                <h3 class="text-center mt-5">{{ section.title }}</h3>
-                {{ section.content | safe }}
+                    {{ lesson.content | safe }}
                 </p>
                 <hr />
                 <!-- Displaying Note of the User -->
-                {% for note in notes %}
-                <!-- <h6><em>{{ user }}</em>'s notes:</h6> -->
+                {% if lesson.id in notes_dict %}
+                {% with note=notes_dict|default_if_none:lesson.id %}
                 <button class="btn btn-edit btn-sm float-end" data-bs-toggle="modal"
                     data-bs-target="#editNoteModal{{ note.id }}">{{ user }}'s Note</button>
                 <!-- Modal -->
@@ -44,31 +39,42 @@
                         <div class="modal-content">
                             <div class="modal-header">
                                 <h5 class="modal-title" id="editNoteModalLabel{{ note.id }}">Edit Note</h5>
-                                <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                    aria-label="Close"></button>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                             </div>
                             <div class="modal-body">
                                 <form method="post">
                                     {% csrf_token %}
-                                    {{ note_form | crispy }}
-                                    {% csrf_token %}
+                                    {{ note_form|crispy }}
                                     <button type="submit" class="btn btn-primary">Save changes</button>
                                 </form>
                             </div>
                         </div>
                     </div>
                 </div>
-                {% if note.title|lower == section.title|lower %}
-                <div class="card-body">
-                    {{ note.body | safe }}
-                </div>
-                <div class="card-footer text-muted">
-                    {{ note.created_on }}
+                {% endwith %}
+                {% else %}
+                <button class="btn btn-edit btn-sm float-end" data-bs-toggle="modal"
+                    data-bs-target="#addNoteModal{{ lesson.id }}">Add Note</button>
+                <!-- Modal -->
+                <div class="modal fade" id="addNoteModal{{ lesson.id }}" tabindex="-1"
+                    aria-labelledby="addNoteModalLabel{{ lesson.id }}" aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="addNoteModalLabel{{ lesson.id }}">Add Note</h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+                                <form method="post">
+                                    {% csrf_token %}
+                                    {{ note_form|crispy }}
+                                    <button type="submit" class="btn btn-primary">Save changes</button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
                 </div>
                 {% endif %}
-                {% endfor %}
-                {% endfor %}
-
             </div>
         </div>
     </div>

@@ -1,6 +1,6 @@
 from django.contrib import messages
 from django.http import HttpResponseRedirect
-from django.shortcuts import get_object_or_404, render, reverse
+from django.shortcuts import get_object_or_404, redirect, render, reverse
 from django.views import generic
 
 from .forms import NoteForm
@@ -32,33 +32,29 @@ def lesson_detail(request, slug):
     :template:`lesson/lesson_detail.html`
     """
 
-    queryset = Lesson.objects.filter(status=1)
-    lesson = get_object_or_404(queryset, slug=slug)
-    lesson_sections = lesson.sections.all().order_by("order")
+    lesson = get_object_or_404(Lesson, slug=slug)
+    user_notes = Note.objects.filter(user=request.user, lesson=lesson)
+
+    notes_dict = {note.lesson.id: note for note in user_notes}
 
     if request.method == "POST":
-        note_form = NoteForm(request.POST)
-        if note_form.is_valid():
-            note = note_form.save(commit=False)
-            # note.title = lesson_sections.get(id=request.POST.get("section_id"))
-            note.author = request.user
-            note.body = request.POST.get("body")
+        form = NoteForm(request.POST)
+        if form.is_valid():
+            note = form.save(commit=False)
+            note.user = request.user
+            note.lesson = lesson
             note.save()
-
-    note_form = NoteForm()
-
-    notes = []
-    for section in lesson_sections:
-        notes.extend(section.notes.all().filter(author=request.user))
+            return redirect("lesson_detail", slug=slug)
+    else:
+        form = NoteForm()
 
     return render(
         request,
         "lesson/lesson_detail.html",
         {
             "lesson": lesson,
-            "lesson_sections": lesson_sections,
-            "notes": notes,
-            "note_form": note_form,
+            "notes_dict": notes_dict,
+            "note_form": form,
         },
     )
 
