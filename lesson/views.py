@@ -33,27 +33,26 @@ def lesson_detail(request, slug):
     """
 
     lesson = get_object_or_404(Lesson, slug=slug)
-    user_notes = Note.objects.filter(user=request.user, lesson=lesson)
-
-    notes_dict = {note.lesson.id: note for note in user_notes}
+    user_note = Note.objects.filter(user=request.user, lesson=lesson).first()
 
     if request.method == "POST":
-        form = NoteForm(request.POST)
+        form = NoteForm(request.POST, instance=user_note)
         if form.is_valid():
             note = form.save(commit=False)
-            note.user = request.user
             note.lesson = lesson
+            note.body = form.cleaned_data["body"]
+            note.user = request.user
             note.save()
             return redirect("lesson_detail", slug=slug)
     else:
-        form = NoteForm()
+        form = NoteForm(instance=user_note)
 
     return render(
         request,
         "lesson/lesson_detail.html",
         {
             "lesson": lesson,
-            "notes_dict": notes_dict,
+            "user_note": user_note,
             "note_form": form,
         },
     )

@@ -1,4 +1,4 @@
-{% extends 'base.html' %} 
+{% extends 'base.html' %}
 {% block content %}
 {% load static %}
 {% load crispy_forms_tags %}
@@ -28,30 +28,31 @@
                 </p>
                 <hr />
                 <!-- Displaying Note of the User -->
-                {% if lesson.id in notes_dict %}
-                {% with note=notes_dict|default_if_none:lesson.id %}
-                <button class="btn btn-edit btn-sm float-end" data-bs-toggle="modal"
-                    data-bs-target="#editNoteModal{{ note.id }}">{{ user }}'s Note</button>
+                {% if user_note %}
+                {{ user_note | safe }}
+                    <button class="btn btn-edit btn-sm float-end" data-bs-toggle="modal"
+                        data-bs-target="#editNoteModal{{ user_note.id }}">{{ user }}'s Note</button>
+                
                 <!-- Modal -->
-                <div class="modal fade" id="editNoteModal{{ note.id }}" tabindex="-1"
-                    aria-labelledby="editNoteModalLabel{{ note.id }}" aria-hidden="true">
+                <div class="modal fade" id="editNoteModal{{ user_note.id }}" tabindex="-1"
+                    aria-labelledby="editNoteModalLabel{{ user_note.id }}" aria-hidden="true">
                     <div class="modal-dialog">
                         <div class="modal-content">
                             <div class="modal-header">
-                                <h5 class="modal-title" id="editNoteModalLabel{{ note.id }}">Edit Note</h5>
-                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                <!-- <h5 class="modal-title" id="editNoteModalLabel{{ user_note.id }}">Edit Note</h5> -->
+                                <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                    aria-label="Close"></button>
                             </div>
                             <div class="modal-body">
                                 <form method="post">
                                     {% csrf_token %}
-                                    {{ note_form|crispy }}
+                                    {{ note_form | crispy}}
                                     <button type="submit" class="btn btn-primary">Save changes</button>
                                 </form>
                             </div>
                         </div>
                     </div>
                 </div>
-                {% endwith %}
                 {% else %}
                 <button class="btn btn-edit btn-sm float-end" data-bs-toggle="modal"
                     data-bs-target="#addNoteModal{{ lesson.id }}">Add Note</button>
@@ -61,8 +62,9 @@
                     <div class="modal-dialog">
                         <div class="modal-content">
                             <div class="modal-header">
-                                <h5 class="modal-title" id="addNoteModalLabel{{ lesson.id }}">Add Note</h5>
-                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                <!-- <h5 class="modal-title" id="addNoteModalLabel{{ lesson.id }}">Add Note</h5> -->
+                                <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                    aria-label="Close"></button>
                             </div>
                             <div class="modal-body">
                                 <form method="post">
