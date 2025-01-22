@@ -10,6 +10,6 @@ class NoteForm(forms.ModelForm):
         fields = ["body"]
         widgets = {
             "body": SummernoteWidget(
-                attrs={"summernote": {"height": 250, "width": 480}}
+                attrs={"summernote": {"height": 300, "width": 420}}
             ),
         }
