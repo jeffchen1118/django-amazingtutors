@@ -3,54 +3,60 @@
 {% block content %}
 
 <!-- index.html content starts here -->
-<div class="container-fluid">
+<div class="container">
     <div class="row">
-
-        <!-- Blog Entries Column -->
-        <div class="col-12 mt-3 left">
-            <div class="row">
-                {% for lesson in lesson_list %}
-                <div class="col-md-4">
-                    <div class="card mb-4">
-                        <div class="card-body">
-                            <div class="image-container">
-                                <div class="image-flash">
-                                    <p class="author">Author: {{ lesson.author }}</p>
-                                </div>
-                            </div>
-                            <a href="{% url 'lesson_detail' lesson.slug %}" class="lesson-link">
-                                <h2 class="card-title">{{ lesson.title }}</h2>
-                                <p class="card-text">{{ lesson.excerpt }}</p>
-                            </a>
-
-                            <hr />
-                            <p class="card-text text-muted h6">{{ lesson.created_on}}
-                            </p>
+        <!-- Placeholder card for creating a new lesson -->
+        <div class="col-md-4">
+            <div class="card mb-4">
+                <div class="card-body">
+                    <div class="image-container">
+                        <div class="image-flash">
+                            <p class="author">Author: none</p>
                         </div>
                     </div>
+                    <a href="{% url 'lesson_create' %}" class="lesson-link faded">
+                        <h2 class="card-title">Create Lesson</h2>
+                        <p class="card-text">lesson excerpt</p>
+                    </a>
+                    <p class="card-text text-muted h6 faded">current date</p>
                 </div>
-                {% if forloop.counter|divisibleby:3 %}
-            </div>
-            <div class="row">
-                {% endif %}
-                {% endfor %}
-
             </div>
         </div>
+
+        <!-- Iterate over the lesson_list to display existing lessons -->
+        {% for lesson in lesson_list %}
+        <div class="col-md-4">
+            <div class="card mb-4">
+                <div class="card-body">
+                    <div class="image-container">
+                        <div class="image-flash">
+                            <p class="author">Author: {{ lesson.author }}</p>
+                        </div>
+                    </div>
+                    <a href="{% url 'lesson_detail' lesson.slug %}" class="lesson-link">
+                        <h2 class="card-title">{{ lesson.title }}</h2>
+                        <p class="card-text">{{ lesson.excerpt }}</p>
+                    </a>
+                    <p class="card-text text-muted h6">{{ lesson.created_on }}</p>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
     </div>
-    {% if is_paginated %}
-    <nav aria-label="Page navigation">
-        <ul class="pagination justify-content-center">
-            {% if page_obj.has_previous %}
-            <li><a href="?page={{ page_obj.previous_page_number }}" class="page-link"> &laquo; PREV</a></li>
-            {% endif %}
-            {% if page_obj.has_next %}
-            <li><a href="?page={{ page_obj.next_page_number }}" class="page-link"> NEXT &raquo;</a></li>
-            {% endif %}
-            
-        </ul>
-    </nav>
-    {% endif %}
+</div>
+{% if is_paginated %}
+<nav aria-label="Page navigation">
+    <ul class="pagination justify-content-center">
+        {% if page_obj.has_previous %}
+        <li><a href="?page={{ page_obj.previous_page_number }}" class="page-link"> &laquo; PREV</a></li>
+        {% endif %}
+        {% if page_obj.has_next %}
+        <li><a href="?page={{ page_obj.next_page_number }}" class="page-link"> NEXT &raquo;</a></li>
+        {% endif %}
+
+    </ul>
+</nav>
+{% endif %}
 </div>
 
 <!-- index.html content ends here -->
