@@ -139,3 +139,14 @@ def lesson_create(request):
             request,
             "lesson/index.html",
         )
+
+
+def lesson_delete(request, slug):
+    """
+    view to delete a lesson
+    """
+    lesson = get_object_or_404(Lesson, slug=slug)
+
+    lesson.delete()
+    messages.success(request, "Lesson deleted successfully.")
+    return redirect("home")

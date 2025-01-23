@@ -4,31 +4,56 @@
 
 {% block content %}
 <div class="container mt-5">
- 
+
     <div class="row">
         <div class="col text-right">
-          <!-- Updated on field goes in here -->
-    
-          <!-- <p class="text-end"><em>Updated on: {{ about.updated_on }}</em></p> -->
+            <!-- Updated on field goes in here -->
+
+            <!-- <p class="text-end"><em>Updated on: {{ about.updated_on }}</em></p> -->
         </div>
     </div>
     <div class="row justify-content-center">
         <div class="col-12 col-md-6 my-5">
-            <h2>Let's collaborate!</h2>
-            <p>I believe in the power of shared knowledge and collective effort.
-                Whether you have a project in mind, wish to co-author
-                an article, or simply want to brainstorm some ideas,
-                I'm excited to hear from you. Fill out the form
-                and we can get the ball rolling!</p>
+            <h2>Edit Lesson</h2>
+            <p>Update or Delete lesson</p>
 
             <!-- add your form here. Your submit button should 
                                 have the classes of btn, btn-secondary -->
             <form method="POST"">
                 {{ lesson_form | crispy }}
                 {% csrf_token %}
-                <button class="btn btn-secondary" type="submit">Submit</button>
+                <button class=" btn btn-secondary" type="submit">Submit</button>
+                <button class="btn btn-delete" lesson_slug = {{ lesson.slug }}>Delete</button>
             </form>
+
+
+        </div>
+    </div>
+</div>
+<!-- Delete confirmation modal -->
+<div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="deleteModalLabel">Delete Lesson?</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                Are you sure you want to delete your lesson?
+                This action cannot be undone.
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <!-- <button class="btn btn-danger formaction="{% url 'lesson_delete' lesson.slug %}">Delete</button>      
+                                        -->
+                <a id="deleteConfirm" href="#" class="btn
+                                        btn-danger">Delete</a>
+            </div>
         </div>
     </div>
 </div>
 {% endblock content %}
+
+{% block extras %}
+<script src="{% static 'js/lesson.js' %}"></script>
+{% endblock %}
