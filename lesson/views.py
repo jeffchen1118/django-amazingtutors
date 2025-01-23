@@ -1,4 +1,5 @@
 from django.contrib import messages
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.http import HttpResponseRedirect
 from django.shortcuts import get_object_or_404, redirect, render, reverse
 from django.utils.text import slugify
@@ -8,13 +9,12 @@ from django.views.generic.edit import CreateView
 from .forms import LessonForm, NoteForm
 from .models import Lesson, Note
 
-
 # Create your views here.
-class LessonCreate(CreateView):
-    model = Lesson
-    form_class = LessonForm
-    template_name = "lesson/lesson_create.html"
-    success_url = "/"
+# class LessonCreate(CreateView):
+#     model = Lesson
+#     form_class = LessonForm
+#     template_name = "lesson/lesson_create.html"
+#     success_url = "/"
 
 
 class LessonList(generic.ListView):
@@ -22,9 +22,18 @@ class LessonList(generic.ListView):
     Displays the home page.
     """
 
-    queryset = Lesson.objects.all().order_by("-created_on")
     template_name = "lesson/index.html"
     paginate_by = 5
+
+    def get_queryset(self):
+        if self.request.user.is_authenticated:
+            # If the user is authenticated, show all lessons if they are the author
+            return Lesson.objects.filter(
+                author=self.request.user
+            ) | Lesson.objects.filter(status=1).order_by("-created_on")
+        else:
+            # If the user is not authenticated, show only published lessons
+            return Lesson.objects.filter(status=1)
 
 
 def lesson_detail(request, slug):
