@@ -11,7 +11,7 @@
                 <div class="card-body">
                     <div class="image-container">
                         <div class="image-flash">
-                            <p class="author">Author: none</p>
+                            <p class="author">Tutor: none</p>
                         </div>
                     </div>
                     <a href="{% url 'lesson_create' %}" class="lesson-link faded">
@@ -30,7 +30,7 @@
                 <div class="card-body">
                     <div class="image-container">
                         <div class="image-flash">
-                            <p class="author">Author: {{ lesson.author }}</p>
+                            <p class="author">Tutor: {{ lesson.author }}</p>
                         </div>
                     </div>
                     <a href="{% url 'lesson_detail' lesson.slug %}" class="lesson-link {% if lesson.status == 0 %}faded{% endif %}">
