@@ -11,5 +11,6 @@ urlpatterns = [
         views.lesson_edit,
         name="lesson_edit",
     ),
+    path("<slug:slug>/question_create", views.question_create, name="question_create"),
     path("", views.LessonList.as_view(), name="home"),
 ]

@@ -1,7 +1,7 @@
 from django.contrib import admin
 from django_summernote.admin import SummernoteModelAdmin
 
-from .models import Lesson, Note
+from .models import Answer, Lesson, Note, Question
 
 # Register your models here.
 
@@ -19,4 +19,18 @@ class LessonAdmin(SummernoteModelAdmin):
 class NoteAdmin(SummernoteModelAdmin):
     list_display = ("lesson", "user", "updated_on")
     search_fields = ["lesson", "body"]
+    summernote_fields = ("body",)
+
+
+@admin.register(Question)
+class QuestionAdmin(SummernoteModelAdmin):
+    list_display = ("lesson", "owner", "created_on")
+    search_fields = ["lesson", "body"]
+    summernote_fields = ("body",)
+
+
+@admin.register(Answer)
+class AnswerAdmin(SummernoteModelAdmin):
+    list_display = ("question", "owner", "created_on")
+    search_fields = ["question", "body"]
     summernote_fields = ("body",)

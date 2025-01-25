@@ -3,7 +3,7 @@ from django.db import models
 from django.utils.text import slugify
 
 STATUS = ((0, "Draft"), (1, "Published"))
-QUESTIONTYPES = ((0, "Test"), (1, "Discussion"))
+QUESTIONTYPES = ((0, "Discussion"), (1, "Test"))
 
 
 # Create your models here.
@@ -44,9 +44,11 @@ class Question(models.Model):
     body = (
         models.TextField()
     )  # Field for storing the question or assignment task or practice content
-    presetanswer = models.TextField(
+    preset_answer = models.TextField(
         blank=True, null=True
     )  # Field for storing the predetermined answer
+    answer_hidden = models.BooleanField(default=True)
+    try_limit = models.IntegerField(default=0)
     questiontype = models.IntegerField(choices=QUESTIONTYPES, default=0)
     due_date = models.DateTimeField(
         blank=True, null=True, default=None
@@ -55,7 +57,7 @@ class Question(models.Model):
     updated_on = models.DateTimeField(auto_now=True)
 
     def __str__(self):
-        return self.content[:50]
+        return self.body[:50]
 
 
 class Answer(models.Model):
@@ -64,11 +66,12 @@ class Answer(models.Model):
     )
     owner = models.ForeignKey(User, on_delete=models.CASCADE, related_name="answers")
     body = models.TextField()  # Field for storing the answer content
-    is_correct = models.BooleanField(default=False)
-    likes = models.IntegerField(default=0)
-    liked_list = models.JSONField(default=list)  # Requires Django 3.1+
+    try_attempt = models.IntegerField(default=0)
+    # likes = models.IntegerField(default=0)
+    # liked_list = models.JSONField(default=list)  # Requires Django 3.1+
+    grade = models.FloatField(default=0)
     created_on = models.DateTimeField(auto_now_add=True)
     updated_on = models.DateTimeField(auto_now=True)
 
     def __str__(self):
-        return self.content[:50]
+        return self.body[:50]

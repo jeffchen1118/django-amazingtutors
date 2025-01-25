@@ -163,3 +163,33 @@ body {
 .faded {
     opacity: 0.5;
 }
+
+/* test question*/
+.testA {
+    background-color: #00bbf9;
+}
+
+/* assignment with duedate */
+.testB {
+    background-color: #ff6392;
+}
+
+/* tutor discussion */
+.discussionA {
+    background-color: #0fa3b1;
+}
+
+/* student discussion */
+.discussionB {
+    background-color: #a9def9;
+}
+
+/* tutor answer */
+.answerA {
+    background-color: #e4c1f9; 
+}
+
+/* student answer */
+.answerB {
+    background-color: #d0f4de;
+}

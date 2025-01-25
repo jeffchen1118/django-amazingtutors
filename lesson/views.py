@@ -1,13 +1,14 @@
 from django.contrib import messages
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.db.models import Case, IntegerField, Value, When
 from django.http import HttpResponseRedirect
 from django.shortcuts import get_object_or_404, redirect, render, reverse
 from django.utils.text import slugify
 from django.views import generic
 from django.views.generic.edit import CreateView
 
-from .forms import LessonForm, NoteForm
-from .models import Lesson, Note
+from .forms import AnswerForm, LessonForm, NoteForm, QuestionForm
+from .models import Answer, Lesson, Note, Question
 
 # Create your views here.
 # class LessonCreate(CreateView):
@@ -54,6 +55,19 @@ def lesson_detail(request, slug):
     if request.user.is_authenticated:  # Check if user is authenticated
         user_note = Note.objects.filter(user=request.user, lesson=lesson).first()
 
+        # Annotate questions to prioritize author's questions
+        questions = (
+            Question.objects.filter(lesson=lesson)
+            .annotate(
+                is_author=Case(
+                    When(owner=lesson.author, then=Value(1)),
+                    default=Value(0),
+                    output_field=IntegerField(),
+                )
+            )
+            .order_by("-is_author", "created_on")
+        )
+
     if request.method == "POST":
         form = NoteForm(request.POST, instance=user_note)
         if form.is_valid():
@@ -65,26 +79,20 @@ def lesson_detail(request, slug):
             return redirect("lesson_detail", slug=slug)
 
     if request.user.is_authenticated:
-        form = NoteForm(instance=user_note)  # Create a new form instance
-        return render(
-            request,
-            "lesson/lesson_detail.html",
-            {
-                "lesson": lesson,
-                "user_note": user_note,
-                "note_form": form,
-            },
-        )
-    else:  # If user is not authenticated
-        messages.add_message(
-            request,
-            messages.INFO,
-            "You are not login, please login or signup.",
-        )
-        return render(
-            request,
-            "lesson/index.html",
-        )
+        form = NoteForm(instance=user_note)
+    else:
+        form = NoteForm()
+
+    return render(
+        request,
+        "lesson/lesson_detail.html",
+        {
+            "lesson": lesson,
+            "questions": questions,
+            "user_note": user_note,
+            "note_form": form,
+        },
+    )
 
 
 def lesson_edit(request, slug):
@@ -150,3 +158,25 @@ def lesson_delete(request, slug):
     lesson.delete()
     messages.success(request, "Lesson deleted successfully.")
     return redirect("home")
+
+
+# use the way lesson_create to create a question by parse QuestionForm and question_create.html, also ensure only the author can create Test type questions
+def question_create(request, slug):
+    lesson = get_object_or_404(Lesson, slug=slug)
+    if request.method == "POST":
+        question_form = QuestionForm(request.POST, user=request.user, lesson=lesson)
+        if question_form.is_valid():
+            question = question_form.save(commit=False)
+            question.lesson = lesson
+            question.owner = request.user
+            question.save()
+            messages.success(request, "Question created successfully.")
+            return redirect("lesson_detail", slug=lesson.slug)
+    else:
+        question_form = QuestionForm(user=request.user, lesson=lesson)
+
+    return render(
+        request,
+        "lesson/question_create.html",
+        {"question_form": question_form, "lesson": lesson},
+    )

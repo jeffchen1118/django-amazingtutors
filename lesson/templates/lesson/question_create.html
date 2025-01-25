@@ -5,16 +5,19 @@
 {% block content %}
 <div class="container">
     <div class="row justify-content-center">
-        <div class="col-12 col-md-6">
-            <h2>Create Lesson</h2>
-            <p></p>
+        <div class="col-12 col-md-6 text-center">
+            <h2>Create Question</h2>
+            <p class="text-start">**Tutor can raise both types: Discussion or Test question.<br>
+               **Test question can be short essay or multiple choice question.<br> 
+               **A short essay question with due date can make an assignment task.<br> 
+               **Lesson learner can raise discussion question only.
+            </p>
 
             <!-- add your form here. Your submit button should 
                                 have the classes of btn, btn-secondary -->
             <form method="post">
                 {% csrf_token %}
-                <!-- {{ form.as_p }} -->
-                {{ form | crispy }}
+                {{ question_form | crispy }}
                 <button class="btn btn-secondary" type="submit">Save</button>
             </form>
         </div>
