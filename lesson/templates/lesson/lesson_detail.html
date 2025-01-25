@@ -13,11 +13,11 @@
                 <p class="lesson-subtitle">{{ lesson.author }} | {{ lesson.created_on }}</p>
                 <!-- Edit Lesson Button-->
                 {% if user.is_authenticated and user == lesson.author %}
-                    <a href="{% url 'lesson_edit' lesson.slug %}" class="btn btn-edit">Edit Lesson</a>
+                <a href="{% url 'lesson_edit' lesson.slug %}" class="btn btn-edit">Edit Lesson</a>
                 {% endif %}
                 <!-- Raise Question Button -->
                 {% if user.is_authenticated %}
-                    <a href="{% url 'question_create' lesson.slug %}" class="btn btn-edit">Raise Question</a>
+                <a href="{% url 'question_create' lesson.slug %}" class="btn btn-edit">Raise Question</a>
                 {% endif %}
 
 
@@ -40,9 +40,9 @@
                 <!-- Displaying Note of the User -->
                 {% if user_note %}
                 {{ user_note | safe }}
-                    <button class="btn btn-edit btn-sm float-end" data-bs-toggle="modal"
-                        data-bs-target="#editNoteModal{{ user_note.id }}">{{ user }}'s Note</button>
-                
+                <button class="btn btn-edit btn-sm float-end" data-bs-toggle="modal"
+                    data-bs-target="#editNoteModal{{ user_note.id }}">{{ user }}'s Note</button>
+
                 <!-- Modal -->
                 <div class="modal fade" id="editNoteModal{{ user_note.id }}" tabindex="-1"
                     aria-labelledby="editNoteModalLabel{{ user_note.id }}" aria-hidden="true">
@@ -96,71 +96,100 @@
     <div class="row">
         <div class="col">
             <h2>Class Activities</h2>
-            
+
             <!-- Questions with both "Test" and due_date -->
             {% for question in questions %}
-                {% if question.questiontype == 1 and question.due_date %}
-                <div class="card mb-3 testB">
-                    <div class="card-body">
-                        <div class="card-title">
-                            <div class="d-flex justify-content-between">
-                                <span>{{ question.body }}</span>
-                                <span>asked by {{ question.owner }} - {{ question.updated_on }}</span>
+            {% if question.questiontype == 1 and question.due_date %}
+            <div class="card mb-3 testB">
+                <div class="card-body">
+                    <div class="card-title">
+                        <div class="d-flex justify-content-between">
+                            <span>[Assignment]{{ question.body }}</span>
+                            <span>asked by {{ question.owner }} - {{ question.updated_on }}</span>
+                            {% for answer in question.ordered_answers %}
+                            <div>
+                                <span>{{ answer.body }}</span>
+                                <span>answered by {{ answer.owner }} - {{ answer.updated_on }}</span>
+                                <span class="badge bg-success">Answered</span>
                             </div>
+                            {% endfor %}
+
                         </div>
                     </div>
                 </div>
-                {% endif %}
+            </div>
+            {% endif %}
             {% endfor %}
-            
+
             <!-- Questions with only "Test" -->
             {% for question in questions %}
-                {% if question.questiontype == 1 and not question.due_date %}
-                <div class="card mb-3 testA">
-                    <div class="card-body">
-                        <div class="card-title">
-                            <div class="d-flex justify-content-between">
-                                <span>{{ question.body }}</span>
-                                <span>asked by {{ question.owner }} - {{ question.updated_on }}</span>
+            {% if question.questiontype == 1 and not question.due_date %}
+            <div class="card mb-3 testA">
+                <div class="card-body">
+                    <div class="card-title">
+                        <div class="d-flex justify-content-between">
+                            <span>[Quiz]{{ question.body }}</span>
+                            <span>asked by {{ question.owner }} - {{ question.updated_on }}</span>
+                            {% for answer in question.ordered_answers %}
+                            <div>
+                                <span>{{ answer.body }}</span>
+                                <span>answered by {{ answer.owner }} - {{ answer.updated_on }}</span>
+                                <span class="badge bg-success">Answered</span>
                             </div>
+                            {% endfor %}
                         </div>
                     </div>
                 </div>
-                {% endif %}
+            </div>
+            {% endif %}
             {% endfor %}
-            
+
             <!-- Tutor's discussion questions -->
             {% for question in questions %}
-                {% if question.questiontype == 0 and question.owner == lesson.author %}
-                <div class="card mb-3 discussionA">
-                    <div class="card-body">
-                        <div class="card-title">
-                            <div class="d-flex justify-content-between">
-                                <span>{{ question.body }}</span>
-                                <span>asked by {{ question.owner }} - {{ question.updated_on }}</span>
+            {% if question.questiontype == 0 and question.owner == lesson.author %}
+            <div class="card mb-3 discussionA">
+                <div class="card-body">
+                    <div class="card-title">
+                        <div class="d-flex justify-content-between">
+                            <span>[Discussion]{{ question.body }}</span>
+                            <span>asked by {{ question.owner }} - {{ question.updated_on }}</span>
+                            {% for answer in question.ordered_answers %}
+                            <div>
+                                <span>{{ answer.body }}</span>
+                                <span>answered by {{ answer.owner }} - {{ answer.updated_on }}</span>
+                                <span class="badge bg-success">Answered</span>
                             </div>
+                            {% endfor %}
                         </div>
                     </div>
                 </div>
-                {% endif %}
+            </div>
+            {% endif %}
             {% endfor %}
-            
+
             <!-- Learner's discussion questions -->
             {% for question in questions %}
-                {% if question.questiontype == 0 and question.owner != lesson.author %}
-                <div class="card mb-3 discussionB">
-                    <div class="card-body">
-                        <div class="card-title">
-                            <div class="d-flex justify-content-between">
-                                <span>{{ question.body }}</span>
-                                <span>asked by {{ question.owner }} - {{ question.updated_on }}</span>
+            {% if question.questiontype == 0 and question.owner != lesson.author %}
+            <div class="card mb-3 discussionB">
+                <div class="card-body">
+                    <div class="card-title">
+                        <div class="d-flex justify-content-between">
+                            <span>[Discussion]{{ question.body }}</span>
+                            <span>asked by {{ question.owner }} - {{ question.updated_on }}</span>
+                            {% for answer in question.ordered_answers %}
+                            <div>
+                                <span>{{ answer.body }}</span>
+                                <span>answered by {{ answer.owner }} - {{ answer.updated_on }}</span>
+                                <span class="badge bg-success">Answered</span>
                             </div>
+                            {% endfor %}
                         </div>
                     </div>
                 </div>
-                {% endif %}
+            </div>
+            {% endif %}
             {% endfor %}
-            
+
         </div>
     </div>
 </div>

@@ -23,14 +23,12 @@ class NoteAdmin(SummernoteModelAdmin):
 
 
 @admin.register(Question)
-class QuestionAdmin(SummernoteModelAdmin):
+class QuestionAdmin(admin.ModelAdmin):
     list_display = ("lesson", "owner", "created_on")
     search_fields = ["lesson", "body"]
-    summernote_fields = ("body",)
 
 
 @admin.register(Answer)
-class AnswerAdmin(SummernoteModelAdmin):
+class AnswerAdmin(admin.ModelAdmin):
     list_display = ("question", "owner", "created_on")
     search_fields = ["question", "body"]
-    summernote_fields = ("body",)

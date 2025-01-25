@@ -54,7 +54,6 @@ def lesson_detail(request, slug):
     lesson = get_object_or_404(Lesson, slug=slug)
     if request.user.is_authenticated:  # Check if user is authenticated
         user_note = Note.objects.filter(user=request.user, lesson=lesson).first()
-
         # Annotate questions to prioritize author's questions
         questions = (
             Question.objects.filter(lesson=lesson)
@@ -67,6 +66,16 @@ def lesson_detail(request, slug):
             )
             .order_by("-is_author", "created_on")
         )
+
+        # Annotate and order answers to prioritize author's answers
+        for question in questions:
+            question.ordered_answers = question.answers.annotate(
+                is_author=Case(
+                    When(owner=lesson.author, then=Value(1)),
+                    default=Value(0),
+                    output_field=IntegerField(),
+                )
+            ).order_by("-is_author", "created_on")
 
     if request.method == "POST":
         form = NoteForm(request.POST, instance=user_note)
