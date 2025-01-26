@@ -100,23 +100,27 @@
             <!-- Questions with both "Test" and due_date -->
             {% for question in questions %}
             {% if question.questiontype == 1 and question.due_date %}
-            <div class="card mb-3 testB">
-                <div class="card-body">
-                    <div class="card-title">
-                        <div class="d-flex justify-content-between">
-                            <span>[Assignment]{{ question.body }}</span>
-                            <span>asked by {{ question.owner }} - {{ question.updated_on }}</span>
-                            {% for answer in question.ordered_answers %}
-                            <div>
-                                <span>{{ answer.body }}</span>
-                                <span>answered by {{ answer.owner }} - {{ answer.updated_on }}</span>
-                                <span class="badge bg-success">Answered</span>
-                            </div>
-                            {% endfor %}
-
+            <div class="card mb-3">
+                <!-- <div class="card-body"> -->
+                    <!-- <div class="card-title"> -->
+                        <div class="testB">
+                            <h6>Assignment: <br>{{ question.body }}</h6>
+                            <span class="float-end"><em>raised by {{ question.owner }} - {{ question.updated_on }}</em></span>
                         </div>
-                    </div>
-                </div>
+                        {% for answer in question.ordered_answers %}
+                        <div class = "{% if answer.owner == lesson.author %}answerA {% else %}answerB {% endif %}">
+                            <h6>{% if answer.owner == lesson.author %}Tutor {{ lesson.author }}'s answer{% else %} Student {{ answer.owner }}'s answer{% endif %}</h6>
+                            <p class="mb-3">{{ answer.body }}</p>
+                            <div class="float-end">
+                            <span><em>submitted by {{ answer.owner }} - {{ answer.updated_on }}</em></span>
+                            <span class="badge bg-success">Answered</span>
+                            </div>
+                        </div>
+                        {% endfor %}
+
+
+                    <!-- </div> -->
+                <!-- </div> -->
             </div>
             {% endif %}
             {% endfor %}
@@ -130,14 +134,15 @@
                         <div class="d-flex justify-content-between">
                             <span>[Quiz]{{ question.body }}</span>
                             <span>asked by {{ question.owner }} - {{ question.updated_on }}</span>
-                            {% for answer in question.ordered_answers %}
-                            <div>
-                                <span>{{ answer.body }}</span>
-                                <span>answered by {{ answer.owner }} - {{ answer.updated_on }}</span>
-                                <span class="badge bg-success">Answered</span>
-                            </div>
-                            {% endfor %}
                         </div>
+                        {% for answer in question.ordered_answers %}
+                        <div>
+                            <p class="mb-3">{{ answer.body }}</p>
+                            <span>answered by {{ answer.owner }} - {{ answer.updated_on }}</span>
+                            <span class="badge bg-success">Answered</span>
+                        </div>
+                        {% endfor %}
+
                     </div>
                 </div>
             </div>
