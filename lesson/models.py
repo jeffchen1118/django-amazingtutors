@@ -79,9 +79,23 @@ class Answer(models.Model):
     try_attempt = models.IntegerField(default=0, blank=True, null=True)
     # likes = models.IntegerField(default=0)
     # liked_list = models.JSONField(default=list)  # Requires Django 3.1+
+    # grade = models.FloatField(default=0, blank=True, null=True)
+    # feedback = models.TextField(blank=True, null=True)
+    created_on = models.DateTimeField(auto_now_add=True)
+    updated_on = models.DateTimeField(auto_now=True)
+
+
+class GradeFeedback(models.Model):
+    answer = models.OneToOneField(
+        Answer, on_delete=models.CASCADE, related_name="grade_feedback"
+    )
+    owner = models.ForeignKey(
+        User, on_delete=models.CASCADE, related_name="grade_feedback"
+    )
     grade = models.FloatField(default=0, blank=True, null=True)
+    feedback = models.TextField(blank=True, null=True)
     created_on = models.DateTimeField(auto_now_add=True)
     updated_on = models.DateTimeField(auto_now=True)
 
     def __str__(self):
-        return self.body[:50]
+        return self.grade

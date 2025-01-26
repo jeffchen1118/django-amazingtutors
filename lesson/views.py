@@ -7,8 +7,8 @@ from django.utils.text import slugify
 from django.views import generic
 from django.views.generic.edit import CreateView
 
-from .forms import AnswerForm, LessonForm, NoteForm, QuestionForm
-from .models import Answer, Lesson, Note, Question
+from .forms import AnswerForm, GradeFeedbackForm, LessonForm, NoteForm, QuestionForm
+from .models import Answer, GradeFeedback, Lesson, Note, Question
 
 # Create your views here.
 # class LessonCreate(CreateView):
@@ -38,44 +38,32 @@ class LessonList(generic.ListView):
 
 
 def lesson_detail(request, slug):
-    """
-    Display an individual :model:`lesson.Lesson`.
-
-    **Context**
-
-    ``lesson``
-        An instance of :model:`lesson.Lesson`.
-
-    **Template:**
-
-    :template:`lesson/lesson_detail.html`
-    """
-
     lesson = get_object_or_404(Lesson, slug=slug)
+    questions = (
+        Question.objects.filter(lesson=lesson)
+        .annotate(
+            is_author=Case(
+                When(owner=lesson.author, then=Value(1)),
+                default=Value(0),
+                output_field=IntegerField(),
+            )
+        )
+        .order_by("-is_author", "created_on")
+    )
+
+    for question in questions:
+        question.ordered_answers = question.answers.annotate(
+            is_author=Case(
+                When(owner=lesson.author, then=Value(1)),
+                default=Value(0),
+                output_field=IntegerField(),
+            )
+        ).order_by("-is_author", "created_on")
+
     if request.user.is_authenticated:  # Check if user is authenticated
         user_note = Note.objects.filter(user=request.user, lesson=lesson).first()
-        # Annotate questions to prioritize author's questions
-        questions = (
-            Question.objects.filter(lesson=lesson)
-            .annotate(
-                is_author=Case(
-                    When(owner=lesson.author, then=Value(1)),
-                    default=Value(0),
-                    output_field=IntegerField(),
-                )
-            )
-            .order_by("-is_author", "created_on")
-        )
-
-        # Annotate and order answers to prioritize author's answers
-        for question in questions:
-            question.ordered_answers = question.answers.annotate(
-                is_author=Case(
-                    When(owner=lesson.author, then=Value(1)),
-                    default=Value(0),
-                    output_field=IntegerField(),
-                )
-            ).order_by("-is_author", "created_on")
+    else:
+        user_note = None
 
     if request.method == "POST":
         form = NoteForm(request.POST, instance=user_note)
@@ -86,11 +74,8 @@ def lesson_detail(request, slug):
             note.user = request.user
             note.save()
             return redirect("lesson_detail", slug=slug)
-
-    if request.user.is_authenticated:
-        form = NoteForm(instance=user_note)
     else:
-        form = NoteForm()
+        form = NoteForm(instance=user_note)
 
     return render(
         request,
@@ -188,4 +173,115 @@ def question_create(request, slug):
         request,
         "lesson/question_create.html",
         {"question_form": question_form, "lesson": lesson},
+    )
+
+
+def question_edit(request, slug, id):
+    lesson = get_object_or_404(Lesson, slug=slug)
+    question = get_object_or_404(Question, id=id)
+    if request.method == "POST":
+        question_form = QuestionForm(
+            request.POST, instance=question, user=request.user, lesson=lesson
+        )
+        if question_form.is_valid():
+            question = question_form.save(commit=False)
+            question.lesson = lesson
+            question.owner = request.user
+            question.save()
+            messages.success(request, "Question updated successfully.")
+            return redirect("lesson_detail", slug=lesson.slug)
+    else:
+        question_form = QuestionForm(
+            instance=question, user=request.user, lesson=lesson
+        )
+
+    return render(
+        request,
+        "lesson/question_edit.html",
+        {"question_form": question_form, "lesson": lesson, "question": question},
+    )
+
+
+def question_delete(request, slug, id):
+    question = get_object_or_404(Question, id=id)
+    question.delete()
+    messages.success(request, "Question deleted successfully.")
+    return redirect("lesson_detail", slug=slug)
+
+
+def answer_create(request, slug, id):
+    lesson = get_object_or_404(Lesson, slug=slug)
+    question = get_object_or_404(Question, id=id)
+    if request.method == "POST":
+        answer_form = AnswerForm(request.POST)
+        if answer_form.is_valid():
+            answer = answer_form.save(commit=False)
+            answer.question = question
+            answer.owner = request.user
+            answer.save()
+            messages.success(request, "Answer created successfully.")
+            return redirect("lesson_detail", slug=slug)
+    else:
+        answer_form = AnswerForm()
+
+    return render(
+        request,
+        "lesson/answer_create.html",
+        {"answer_form": answer_form, "lesson": lesson, "question": question},
+    )
+
+
+def answer_edit(request, slug, id):
+    lesson = get_object_or_404(Lesson, slug=slug)
+    answer = get_object_or_404(Answer, id=id)
+    if request.method == "POST":
+        answer_form = AnswerForm(request.POST, instance=answer)
+        if answer_form.is_valid():
+            answer = answer_form.save(commit=False)
+            answer.owner = request.user
+            answer.save()
+            messages.success(request, "Answer updated successfully.")
+            return redirect("lesson_detail", slug=slug)
+    else:
+        answer_form = AnswerForm(instance=answer)
+
+    return render(
+        request,
+        "lesson/answer_edit.html",
+        {"answer_form": answer_form, "lesson": lesson, "answer": answer},
+    )
+
+
+def answer_delete(request, slug, id):
+    answer = get_object_or_404(Answer, id=id)
+    answer.delete()
+    messages.success(request, "Answer deleted successfully.")
+    return redirect("lesson_detail", slug=slug)
+
+
+def grade_feedback(request, slug, id):
+    lesson = get_object_or_404(Lesson, slug=slug)
+    answer = get_object_or_404(Answer, id=id)
+    grade_feedback = GradeFeedback.objects.filter(answer=answer).first()
+    if request.method == "POST":
+        grade_feedback_form = GradeFeedbackForm(request.POST, instance=grade_feedback)
+        if grade_feedback_form.is_valid():
+            grade_feedback = grade_feedback_form.save(commit=False)
+            grade_feedback.answer = answer
+            grade_feedback.owner = request.user
+            grade_feedback.save()
+            messages.success(request, "Grade and feedback saved successfully.")
+            return redirect("lesson_detail", slug=slug)
+    else:
+        grade_feedback_form = GradeFeedbackForm(instance=grade_feedback)
+
+    return render(
+        request,
+        "lesson/grade_feedback.html",
+        {
+            "grade_feedback_form": grade_feedback_form,
+            "lesson": lesson,
+            "answer": answer,
+            "grade_feedback": grade_feedback,
+        },
     )

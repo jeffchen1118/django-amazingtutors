@@ -2,7 +2,7 @@ from django import forms
 from django.forms import Textarea
 from django_summernote.widgets import SummernoteWidget
 
-from .models import QUESTIONTYPES, Answer, Lesson, Note, Question
+from .models import QUESTIONTYPES, Answer, GradeFeedback, Lesson, Note, Question
 
 
 class LessonForm(forms.ModelForm):
@@ -33,7 +33,10 @@ class QuestionForm(forms.ModelForm):
         model = Question
         fields = ["body", "preset_answer", "questiontype", "due_date"]
         widgets = {
-            "body": Textarea(attrs={"rows": 4, "cols": 30}),
+            # "body": Textarea(attrs={"rows": 4, "cols": 30}),
+            "body": SummernoteWidget(
+                attrs={"summernote": {"height": 300, "width": 400}}
+            ),
             "preset_answer": Textarea(attrs={"rows": 4, "cols": 30}),
             "due_date": forms.DateTimeInput(
                 attrs={"type": "datetime-local", "placeholder": "YYYY-MM-DD HH:MM"}
@@ -64,4 +67,15 @@ class AnswerForm(forms.ModelForm):
         fields = ["body"]
         widgets = {
             "body": Textarea(attrs={"rows": 4, "cols": 30}),
+        }
+
+
+class GradeFeedbackForm(forms.ModelForm):
+    class Meta:
+        model = GradeFeedback
+        fields = ["grade", "feedback"]
+        widgets = {
+            "body": SummernoteWidget(
+                attrs={"summernote": {"height": 300, "width": 400}}
+            ),
         }

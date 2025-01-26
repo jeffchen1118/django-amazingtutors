@@ -6,19 +6,16 @@
 <div class="container">
     <div class="row justify-content-center">
         <div class="col-12 col-md-6 text-center">
-            <h2>Create Question</h2>
-            <p class="text-start">**Tutor can raise both types of question for Discussion or Test.<br>
-               **Test questions can either be short answer, essay or multiple choice question depend on wording.<br> 
-               **A test question with due date can make an assignment task.<br> 
-               **Students can raise discussion question only.<br>
-               **Question format is free, can attach video or file url link via the editor. 
+            <h3>{{ question.body }}</h3>
+            <h3>Due Date: {{ question.due_date }}</h3>
+            <p class="text-start"> .
             </p>
 
             <!-- add your form here. Your submit button should 
                                 have the classes of btn, btn-secondary -->
             <form method="post">
                 {% csrf_token %}
-                {{ question_form | crispy }}
+                {{ answer_form | crispy }}
                 <button class="btn btn-secondary" type="submit">Save</button>
             </form>
         </div>

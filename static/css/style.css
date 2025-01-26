@@ -167,29 +167,45 @@ body {
 /* test question*/
 .testA {
     background-color: #f7a072;
+    border-radius: 10px;
 }
 
 /* assignment with duedate */
 .testB {
     background-color: #ff6392;
+    border-radius: 10px;
 }
 
 /* tutor discussion */
 .discussionA {
     background-color: #00bbf9;
+    border-radius: 10px;
+    border: 1px solid white;
 }
 
 /* student discussion */
 .discussionB {
     background-color: #a9def9;
+    border-radius: 10px;
+    border: 1px solid white;
 }
 
 /* tutor answer */
 .answerA {
     background-color: #e4c1f9; 
+    border-radius: 10px;
+    border: 1px solid white;
 }
 
 /* student answer */
 .answerB {
     background-color: #d0f4de;
+    border-radius: 10px;
+    border: 1px solid white;
+}
+
+
+.disabled {
+    pointer-events: none;
+    opacity: 0.6;
 }
