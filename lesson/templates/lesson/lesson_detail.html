@@ -34,220 +34,221 @@
 </div>
 
 
-    <div class="container">
-        <div class="row">
-            <div class="col card mb-4 mt-3 left top">
-                <div class="card-body">
-                    <p class="card-text">
-                        {{ lesson.content | safe }}
-                    </p>
-                    <hr />
-                    <!-- Displaying Note of the User -->
-                    {% if user_note %}
-                    {{ user_note | safe }}
-                    <button class="btn btn-edit btn-sm float-end" data-bs-toggle="modal"
-                        data-bs-target="#editNoteModal{{ user_note.id }}">{{ user }}'s Note</button>
+<div class="container">
+    <div class="row">
+        <div class="col card mb-4 mt-3 left top">
+            <div class="card-body">
+                <p class="card-text">
+                    {{ lesson.content | safe }}
+                </p>
+                <hr />
+                <!-- Displaying Note of the User -->
+                {% if user_note %}
+                {{ user_note | safe }}
+                <button class="btn btn-edit btn-sm float-end" data-bs-toggle="modal"
+                    data-bs-target="#editNoteModal{{ user_note.id }}">{{ user }}'s Note</button>
 
-                    <!-- Modal -->
-                    <div class="modal fade" id="editNoteModal{{ user_note.id }}" tabindex="-1"
-                        aria-labelledby="editNoteModalLabel{{ user_note.id }}" aria-hidden="true">
-                        <div class="modal-dialog">
-                            <div class="modal-content">
-                                <div class="modal-header">
-                                    <!-- <h5 class="modal-title" id="editNoteModalLabel{{ user_note.id }}">Edit Note</h5> -->
-                                    <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                        aria-label="Close"></button>
-                                </div>
-                                <div class="modal-body">
-                                    <form method="post">
-                                        {% csrf_token %}
-                                        {{ note_form | crispy}}
-                                        <button type="submit" class="btn btn-primary">Save changes</button>
-                                    </form>
-                                </div>
+                <!-- Modal -->
+                <div class="modal fade" id="editNoteModal{{ user_note.id }}" tabindex="-1"
+                    aria-labelledby="editNoteModalLabel{{ user_note.id }}" aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <!-- <h5 class="modal-title" id="editNoteModalLabel{{ user_note.id }}">Edit Note</h5> -->
+                                <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                    aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+                                <form method="post">
+                                    {% csrf_token %}
+                                    {{ note_form | crispy}}
+                                    <button type="submit" class="btn btn-primary">Save changes</button>
+                                </form>
                             </div>
                         </div>
                     </div>
-                    {% else %}
-                    <button class="btn btn-edit btn-sm float-end" data-bs-toggle="modal"
-                        data-bs-target="#addNoteModal{{ lesson.id }}">Add Note</button>
-                    <!-- Modal -->
-                    <div class="modal fade" id="addNoteModal{{ lesson.id }}" tabindex="-1"
-                        aria-labelledby="addNoteModalLabel{{ lesson.id }}" aria-hidden="true">
-                        <div class="modal-dialog">
-                            <div class="modal-content">
-                                <div class="modal-header">
-                                    <!-- <h5 class="modal-title" id="addNoteModalLabel{{ lesson.id }}">Add Note</h5> -->
-                                    <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                        aria-label="Close"></button>
-                                </div>
-                                <div class="modal-body">
-                                    <form method="post">
-                                        {% csrf_token %}
-                                        {{ note_form|crispy }}
-                                        <button type="submit" class="btn btn-primary">Save changes</button>
-                                    </form>
-                                </div>
+                </div>
+                {% else %}
+                <button class="btn btn-edit btn-sm float-end" data-bs-toggle="modal"
+                    data-bs-target="#addNoteModal{{ lesson.id }}">Add Note</button>
+                <!-- Modal -->
+                <div class="modal fade" id="addNoteModal{{ lesson.id }}" tabindex="-1"
+                    aria-labelledby="addNoteModalLabel{{ lesson.id }}" aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <!-- <h5 class="modal-title" id="addNoteModalLabel{{ lesson.id }}">Add Note</h5> -->
+                                <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                    aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+                                <form method="post">
+                                    {% csrf_token %}
+                                    {{ note_form|crispy }}
+                                    <button type="submit" class="btn btn-primary">Save changes</button>
+                                </form>
                             </div>
                         </div>
                     </div>
-                    {% endif %}
                 </div>
-            </div>
-        </div>
-        <hr />
-
-        <!--Display Questions -->
-        <div class="row">
-            <div class="col">
-                <h2>Class Activities</h2>
-
-                <!-- Questions with both "Test" and due_date -->
-                {% for question in questions %}
-                {% if question.questiontype == 1 %}
-
-                <div class="card mb-5">
-                    {% if question.due_date %}
-                    <div class="testB">
-                        <h6>Assignment-due date:{{ question.due_date }}</h6><br>
-                        <!-- Questions with "Test" but no due_date -->
-                        {% else %}
-                        <div class="testA">
-                            <h6>Quiz:</h6><br>
-                            {% endif %}
-
-                            <h6 class="text-center">{{ question.body }}</h6>
-                            <!--button for question_edit, only lesson.author can edit-->
-                            {% if user.is_authenticated and user == lesson.author %}
-                            <div class="float-end"><a href="{% url 'question_edit' lesson.slug question.id %}"
-                                    class="btn btn-edit">Edit Question</a>
-                            </div>
-                            {% endif %}
-                            <!-- Display Write Answer button if user has not answered the question -->
-                            {% if not question.ordered_answers|user_in_answers:user %}
-                            <div class="float-end"><a href="{% url 'answer_create' lesson.slug question.id %}"
-                                    class="btn btn-primary">Write Answer</a></div>
-                            {% endif %}
-                            <span class="float-end"><em>raised by {{ question.owner }} - {{
-                                    question.updated_on}}</em></span>
-                        </div>
-
-                        {% for answer in question.ordered_answers %}
-                        {% if user == answer.owner or user == lesson.author %}
-                        <div class="{% if answer.owner == lesson.author %}answerA {% else %}answerB {% endif %}">
-                            <h6>{% if answer.owner == lesson.author %}Tutor {{ lesson.author }}'s answer{% else %}
-                                Student
-                                {{ answer.owner }}'s answer{% endif %}</h6>
-                            <p class="text-center">{{ answer.body }}</p>
-
-                            <span><em>submitted by {{ answer.owner }} - {{ answer.updated_on }}</em></span>
-
-                            <!-- <span class="badge bg-success float-end">Answered</span> -->
-                            <!-- Print Grade and Feedback -->
-                            {% if answer.grade_feedback %}
-
-                            <span class="badge bg-primary">Graded: {{ answer.grade_feedback.grade }}</span>
-                            <span class="answerA">Feedback: {{ answer.grade_feedback.feedback }}</span>
-                            {% endif %}
-                            {% if user == lesson.author and answer.owner != lesson.author %}
-                            <div class="float-end">
-                                <a href="{% url 'grade_feedback' lesson.slug answer.id %}"
-                                    class="btn btn-info">Grade&Feedback</a>
-                            </div>
-                            {% endif %}
-
-                            {% if current_time > question.due_date|date:"U" and user != lesson.author %}
-                            <div class="float-end">
-                                <a href="#" class="btn btn-edit disabled" onclick="return false;">Edit Answer</a>
-                            </div>
-                            {% elif user == answer.owner and not answer.grade_feedback %}
-                            <div class="float-end">
-                                <a href="{% url 'answer_edit' lesson.slug answer.id %}" class="btn btn-edit">Edit
-                                    Answer</a>
-                            </div>
-                            {% endif %}
-
-
-
-                        </div>
-                        {% endif %}
-                        {% endfor %}
-                    </div> <!-- End of TestB -->
-                    {% endif %}
-                    {% endfor %}
-
-                </div>
-
-                <!-- Discussion Questions -->
-                {% for question in questions %}
-                {% if question.questiontype == 0 %}
-                <div class="card mb-5">
-                    {% if question.owner == lesson.author %}
-                    <div class="discussionA">
-                        {% else %}
-                        <div class="discussionB">
-                            {% endif %}
-                            <h6>Discussion raised from {{question.owner}}:</h6><br>
-                            <h6 class="text-center">{{ question.body }}</h6>
-                            <!--button for question_edit, only lesson.author can edit-->
-                            {% if user.is_authenticated and user == question.owner %}
-                            <div class="float-end"><a href="{% url 'question_edit' lesson.slug question.id %}"
-                                    class="btn btn-edit">Edit Question</a>
-                            </div>
-                            {% endif %}
-                            <!-- Display Write Answer button if user has not answered the question -->
-                            {% if not question.ordered_answers|user_in_answers:user %}
-                            <div class="float-end"><a href="{% url 'answer_create' lesson.slug question.id %}"
-                                    class="btn btn-primary">Write Answer</a></div>
-                            {% endif %}
-                            <span class="float-end"><em>raised by {{ question.owner }} - {{
-                                    question.updated_on}}</em></span>
-                        </div>
-
-                        {% for answer in question.ordered_answers %}
-                        {% if user == answer.owner or user == lesson.author %}
-                        <div class="{% if answer.owner == lesson.author %}answerA {% else %}answerB {% endif %}">
-                            <h6>{% if answer.owner == lesson.author %}Tutor {{ lesson.author }}'s answer{% else %}
-                                Student
-                                {{ answer.owner }}'s answer{% endif %}</h6>
-                            <p class="text-center">{{ answer.body }}</p>
-
-                            <span><em>submitted by {{ answer.owner }} - {{ answer.updated_on }}</em></span>
-
-                            <!-- <span class="badge bg-success float-end">Answered</span> -->
-                            <!-- Print Grade and Feedback -->
-                            {% if answer.grade_feedback %}
-
-                            <span class="badge bg-primary">Graded: {{ answer.grade_feedback.grade }}</span>
-                            <span class="answerA">Feedback: {{ answer.grade_feedback.feedback }}</span>
-                            {% endif %}
-                            {% if user == lesson.author and answer.owner != lesson.author %}
-                            <div class="float-end">
-                                <a href="{% url 'grade_feedback' lesson.slug answer.id %}"
-                                    class="btn btn-info">Grade&Feedback</a>
-                            </div>
-                            {% endif %}
-
-
-                            {% if user == answer.owner and not answer.grade_feedback %}
-                            <div class="float-end">
-                                <a href="{% url 'answer_edit' lesson.slug answer.id %}" class="btn btn-edit">Edit
-                                    Answer</a>
-                            </div>
-                            {% endif %}
-
-                        </div>
-                        {% endif %}
-                        {% endfor %}
-
-                    </div>
-                    {% endif %}
-                    {% endfor %}
-                </div>
-
-
-
+                {% endif %}
             </div>
         </div>
     </div>
-    {% endblock content %}
+    <hr />
+
+    <!--Display Questions -->
+    <div class="row">
+        <div class="col">
+            <h2>Class Activities</h2>
+
+            <!-- Questions with both "Test" and due_date -->
+            {% for question in questions %}
+            {% if question.questiontype == 1 %}
+
+            <div class="card mb-5">
+                {% if question.due_date %}
+                <div class="testB">
+                    <h6>Assignment-due date:{{ question.due_date }}</h6><br>
+                    <!-- Questions with "Test" but no due_date -->
+                    {% else %}
+                    <div class="testA">
+                        <h6>Quiz:</h6><br>
+                        {% endif %}
+
+                        <h6 class="text-center">{{ question.body }}</h6>
+                        <!--button for question_edit, only lesson.author can edit-->
+                        {% if user.is_authenticated and user == lesson.author %}
+                        <div class="float-end"><a href="{% url 'question_edit' lesson.slug question.id %}"
+                                class="btn btn-edit">Edit Question</a>
+                        </div>
+                        {% endif %}
+                        <!-- Display Write Answer button if user has not answered the question -->
+                        {% if not question.ordered_answers|user_in_answers:user %}
+                        <div class="float-end"><a href="{% url 'answer_create' lesson.slug question.id %}"
+                                class="btn btn-primary">Write Answer</a></div>
+                        {% endif %}
+                        <span class="float-end"><em>raised by {{ question.owner }} 
+                            - {{question.updated_on}}</em></span>
+                    </div>
+
+                    {% for answer in question.ordered_answers %}
+                    {% if user == answer.owner or user == lesson.author %}
+                    <div class="{% if answer.owner == lesson.author %}answerA {% else %}answerB {% endif %}">
+                        <h6>{% if answer.owner == lesson.author %}Tutor {{ lesson.author }}'s answer{% else %}
+                            Student
+                            {{ answer.owner }}'s answer{% endif %}</h6>
+                        <p class="text-center">{{ answer.body }}</p>
+
+                        <span><em>submitted by {{ answer.owner }} 
+                            - {{ answer.updated_on }}</em></span>
+
+                        <!-- <span class="badge bg-success float-end">Answered</span> -->
+                        <!-- Print Grade and Feedback -->
+                        {% if answer.grade_feedback %}
+
+                        <span class="badge bg-primary">Graded: {{ answer.grade_feedback.grade }}</span>
+                        <span class="answerA">Feedback: {{ answer.grade_feedback.feedback }}</span>
+                        {% endif %}
+                        {% if user == lesson.author and answer.owner != lesson.author %}
+                        <div class="float-end">
+                            <a href="{% url 'grade_feedback' lesson.slug answer.id %}"
+                                class="btn btn-info">Grade&Feedback</a>
+                        </div>
+                        {% endif %}
+
+                        {% if current_time > question.due_date|date:"U" and user != lesson.author %}
+                        <div class="float-end">
+                            <a href="#" class="btn btn-edit disabled" onclick="return false;">Edit Answer</a>
+                        </div>
+                        {% elif user == answer.owner and not answer.grade_feedback %}
+                        <div class="float-end">
+                            <a href="{% url 'answer_edit' lesson.slug answer.id %}" class="btn btn-edit">Edit
+                                Answer</a>
+                        </div>
+                        {% endif %}
+
+
+
+                    </div>
+                    {% endif %}
+                    {% endfor %}
+                </div> <!-- End of TestB -->
+                {% endif %}
+                {% endfor %}
+
+            </div>
+
+            <!-- Discussion Questions -->
+            {% for question in questions %}
+            {% if question.questiontype == 0 %}
+            <div class="card mb-5">
+                {% if question.owner == lesson.author %}
+                <div class="discussionA">
+                    {% else %}
+                    <div class="discussionB">
+                        {% endif %}
+                        <h6>Discussion raised from {{question.owner}}:</h6><br>
+                        <h6 class="text-center">{{ question.body }}</h6>
+                        <!--button for question_edit, only lesson.author can edit-->
+                        {% if user.is_authenticated and user == question.owner %}
+                        <div class="float-end"><a href="{% url 'question_edit' lesson.slug question.id %}"
+                                class="btn btn-edit">Edit Question</a>
+                        </div>
+                        {% endif %}
+                        <!-- Display Write Answer button if user has not answered the question -->
+                        {% if not question.ordered_answers|user_in_answers:user %}
+                        <div class="float-end"><a href="{% url 'answer_create' lesson.slug question.id %}"
+                                class="btn btn-primary">Write Answer</a></div>
+                        {% endif %}
+                        <span class="float-end"><em>raised by {{ question.owner }} 
+                            - {{question.updated_on}}</em></span>
+                    </div>
+
+                    {% for answer in question.ordered_answers %}
+                    {% if user == answer.owner or user == lesson.author %}
+                    <div class="{% if answer.owner == lesson.author %}answerA {% else %}answerB {% endif %}">
+                        <h6>{% if answer.owner == lesson.author %}Tutor {{ lesson.author }}'s answer{% else %}
+                            Student
+                            {{ answer.owner }}'s answer{% endif %}</h6>
+                        <p class="text-center">{{ answer.body }}</p>
+
+                        <span><em>submitted by {{ answer.owner }} - {{ answer.updated_on }}</em></span>
+
+                        <!-- <span class="badge bg-success float-end">Answered</span> -->
+                        <!-- Print Grade and Feedback -->
+                        {% if answer.grade_feedback %}
+
+                        <span class="badge bg-primary">Graded: {{ answer.grade_feedback.grade }}</span>
+                        <span class="answerA">Feedback: {{ answer.grade_feedback.feedback }}</span>
+                        {% endif %}
+                        {% if user == lesson.author and answer.owner != lesson.author %}
+                        <div class="float-end">
+                            <a href="{% url 'grade_feedback' lesson.slug answer.id %}"
+                                class="btn btn-info">Grade&Feedback</a>
+                        </div>
+                        {% endif %}
+
+
+                        {% if user == answer.owner and not answer.grade_feedback %}
+                        <div class="float-end">
+                            <a href="{% url 'answer_edit' lesson.slug answer.id %}" class="btn btn-edit">Edit
+                                Answer</a>
+                        </div>
+                        {% endif %}
+
+                    </div>
+                    {% endif %}
+                    {% endfor %}
+
+                </div>
+                {% endif %}
+                {% endfor %}
+            </div>
+
+
+
+        </div>
+    </div>
+</div>
+{% endblock content %}
