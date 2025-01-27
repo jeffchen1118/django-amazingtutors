@@ -12,26 +12,23 @@
             <div class="col-md-6 masthead-text">
                 <h4 class="lesson-title">{{ lesson.title }}</h4>
                 <p class="lesson-subtitle">{{ lesson.author }} | {{ lesson.created_on }}</p>
-                <!-- Edit Lesson Button-->
-                {% if user.is_authenticated and user == lesson.author %}
-                <a href="{% url 'lesson_edit' lesson.slug %}" class="btn btn-edit">Edit Lesson</a>
-                {% endif %}
-
-
-                <!-- Raise Question Button -->
-                {% if user.is_authenticated %}
-                <a href="{% url 'question_create' lesson.slug %}" class="btn btn-edit">Raise Question</a>
-                {% endif %}
+                <div class="masthead-buttons">
+                    <!-- Edit Lesson Button-->
+                    {% if user.is_authenticated and user == lesson.author %}
+                    <a href="{% url 'lesson_edit' lesson.slug %}" class="btn btn-edit">Edit Lesson</a>
+                    {% endif %}
+                    <!-- Raise Question Button -->
+                    {% if user.is_authenticated %}
+                    <a href="{% url 'question_create' lesson.slug %}" class="btn btn-edit">Raise Question</a>
+                    {% endif %}
+                </div>
             </div>
-
             <div class="d-none d-md-block col-md-6 masthead-image">
                 <img src="{% static 'images/AmazingTutors.jpg' %}" class="scale" alt="placeholder">
             </div>
         </div>
     </div>
 </div>
-
-
 
 <div class="container">
     <div class="row">
@@ -115,7 +112,7 @@
                         <h6>Quiz:</h6><br>
                         {% endif %}
 
-                        <h6 class="text-center">{{ question.body }}</h6>
+                        <div class="text-center">{{ question.body }}</div>
                         <!--button for question_edit, only lesson.author can edit-->
                         {% if user.is_authenticated and user == lesson.author %}
                         <div class="float-end"><a href="{% url 'question_edit' lesson.slug question.id %}"
@@ -188,7 +185,7 @@
                     <div class="discussionB">
                         {% endif %}
                         <h6>Discussion raised from {{question.owner}}:</h6><br>
-                        <h6 class="text-center">{{ question.body }}</h6>
+                        <div class="text-center">{{ question.body }}</div>
                         <!--button for question_edit, only lesson.author can edit-->
                         {% if user.is_authenticated and user == question.owner %}
                         <div class="float-end"><a href="{% url 'question_edit' lesson.slug question.id %}"

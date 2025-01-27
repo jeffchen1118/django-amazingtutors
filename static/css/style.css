@@ -70,6 +70,7 @@ body {
     background-color: #445261;
     color: white;
     position: relative;
+    padding-bottom: 50px; /* Add padding to accommodate buttons */
 }
 
 .masthead-image {
@@ -89,6 +90,14 @@ body {
     -moz-transform: skew(15deg);
     transform: skew(15deg);
     z-index: 100;
+}
+
+.masthead-buttons {
+    position: relative;
+    top: 2vh;
+    left: 10px;
+    display: flex;
+    gap: 10px;
 }
 
 .lesson-link {
