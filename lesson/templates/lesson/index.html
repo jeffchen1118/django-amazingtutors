@@ -1,5 +1,5 @@
 {% extends "base.html" %}
-
+{% load static %}
 {% block content %}
 
 <!-- index.html content starts here -->
@@ -10,6 +10,11 @@
             <div class="card mb-4">
                 <div class="card-body">
                     <div class="image-container">
+                        {% if "placeholder" in post.featured_image.url %}
+                        <img class="card-img-top" src="{% static 'images/default.jpg' %}" alt="placeholder image">
+                        {% else %}
+                        <img class="card-img-top" src=" {{ post.featured_image.url }}" alt="{{ post.title }}">
+                        {% endif %}
                         <div class="image-flash">
                             <p class="author">Tutor: none</p>
                         </div>
@@ -26,6 +31,7 @@
         <!-- Iterate over the lesson_list to display existing lessons -->
         {% if user.is_authenticated %}
         {% for lesson in lesson_list %}
+
         <div class="col-md-4">
             <div class="card mb-4">
                 <div class="card-body">
@@ -34,7 +40,8 @@
                             <p class="author">Tutor: {{ lesson.author }}</p>
                         </div>
                     </div>
-                    <a href="{% url 'lesson_detail' lesson.slug %}" class="lesson-link {% if lesson.status == 0 %}faded{% endif %}">
+                    <a href="{% url 'lesson_detail' lesson.slug %}"
+                        class="lesson-link {% if lesson.status == 0 %}faded{% endif %}">
                         <h2 class="card-title {% if lesson.status == 0 %}faded{% endif %}">{{ lesson.title }}</h2>
                         <p class="card-text {% if lesson.status == 0 %}faded{% endif %}">{{ lesson.excerpt }}</p>
                     </a>

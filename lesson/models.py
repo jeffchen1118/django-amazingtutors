@@ -1,6 +1,6 @@
+from cloudinary.models import CloudinaryField
 from django.contrib.auth.models import User
 from django.db import models
-from django.db.models import Case, IntegerField, Value, When
 from django.utils.text import slugify
 
 STATUS = ((0, "Draft"), (1, "Published"))
@@ -12,6 +12,9 @@ class Lesson(models.Model):
     title = models.CharField(max_length=200, unique=True)
     slug = models.SlugField(max_length=200, unique=True, blank=True)
     author = models.ForeignKey(User, on_delete=models.CASCADE, related_name="lessons")
+    featured_image = CloudinaryField(
+        "image", blank=True, null=True, default="placeholder"
+    )
     content = models.TextField()
     excerpt = models.TextField(blank=True)
     created_on = models.DateTimeField(auto_now_add=True)
@@ -60,15 +63,6 @@ class Question(models.Model):
     def __str__(self):
         return self.body[:50]
 
-    # def get_ordered_answers(self):
-    #     return self.answers.annotate(
-    #         is_author=Case(
-    #             When(owner=self.lesson.author, then=Value(1)),
-    #             default=Value(0),
-    #             output_field=IntegerField(),
-    #         )
-    #     ).order_by("-is_author", "created_on")
-
 
 class Answer(models.Model):
     question = models.ForeignKey(
@@ -77,10 +71,6 @@ class Answer(models.Model):
     owner = models.ForeignKey(User, on_delete=models.CASCADE, related_name="answers")
     body = models.TextField()  # Field for storing the answer content
     try_attempt = models.IntegerField(default=0, blank=True, null=True)
-    # likes = models.IntegerField(default=0)
-    # liked_list = models.JSONField(default=list)  # Requires Django 3.1+
-    # grade = models.FloatField(default=0, blank=True, null=True)
-    # feedback = models.TextField(blank=True, null=True)
     created_on = models.DateTimeField(auto_now_add=True)
     updated_on = models.DateTimeField(auto_now=True)
 
