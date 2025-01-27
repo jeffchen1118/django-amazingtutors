@@ -10,9 +10,7 @@
     <div class="container">
         <div class="row g-0">
             <div class="col-md-6 masthead-text">
-                <!-- Post title goes in these h1 tags -->
-                <h1 class="lesson-title">{{ lesson.title }}</h1>
-                <!-- Post author goes before the | the post's created date goes after -->
+                <h4 class="lesson-title">{{ lesson.title }}</h4>
                 <p class="lesson-subtitle">{{ lesson.author }} | {{ lesson.created_on }}</p>
                 <!-- Edit Lesson Button-->
                 {% if user.is_authenticated and user == lesson.author %}
@@ -32,6 +30,7 @@
         </div>
     </div>
 </div>
+
 
 
 <div class="container">
@@ -128,8 +127,8 @@
                         <div class="float-end"><a href="{% url 'answer_create' lesson.slug question.id %}"
                                 class="btn btn-primary">Write Answer</a></div>
                         {% endif %}
-                        <span class="float-end"><em>raised by {{ question.owner }} 
-                            - {{question.updated_on}}</em></span>
+                        <span class="float-end"><em>raised by {{ question.owner }}
+                                - {{question.updated_on}}</em></span>
                     </div>
 
                     {% for answer in question.ordered_answers %}
@@ -140,8 +139,8 @@
                             {{ answer.owner }}'s answer{% endif %}</h6>
                         <p class="text-center">{{ answer.body }}</p>
 
-                        <span><em>submitted by {{ answer.owner }} 
-                            - {{ answer.updated_on }}</em></span>
+                        <span><em>submitted by {{ answer.owner }}
+                                - {{ answer.updated_on }}</em></span>
 
                         <!-- <span class="badge bg-success float-end">Answered</span> -->
                         <!-- Print Grade and Feedback -->
@@ -201,8 +200,8 @@
                         <div class="float-end"><a href="{% url 'answer_create' lesson.slug question.id %}"
                                 class="btn btn-primary">Write Answer</a></div>
                         {% endif %}
-                        <span class="float-end"><em>raised by {{ question.owner }} 
-                            - {{question.updated_on}}</em></span>
+                        <span class="float-end"><em>raised by {{ question.owner }}
+                                - {{question.updated_on}}</em></span>
                     </div>
 
                     {% for answer in question.ordered_answers %}
@@ -251,4 +250,5 @@
         </div>
     </div>
 </div>
+
 {% endblock content %}
