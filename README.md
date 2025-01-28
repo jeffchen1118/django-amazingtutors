@@ -491,13 +491,11 @@ in [Shar-nm](https://github.com/shar-nm/lens-whisperer?tab=readme-ov-file) there
  - [Codepilot](https://copilot.microsoft.com/)
  - [Microsoft Designer](https://designer.microsoft.com/)
 
-| Source | Location | Notes |
+| Source | Location | Notes | 
 | --- | --- | --- |
-| [Shar-nm](https://github.com/shar-nm/lens-whisperer?tab=readme-ov-file) | README and TESTING | a wonderful robust template to help me complete this readme.MD file||
+| [Shar-nm](https://github.com/shar-nm/lens-whisperer?tab=readme-ov-file) | README and Testing | a wonderful robust template to help me complete this readme.MD file |
+| [Very Academy](https://www.youtube.com/watch?v=qJUgC4T5e_E) | Youtube channel | The channel offers vast of Django projects model orm videos |
 | [W3Schools](https://www.w3schools.com/howto/howto_js_topnav_responsive.asp) | entire site | responsive HTML/CSS/JS navbar |
-| [StackOverflow](https://stackoverflow.com/questions/78216228/how-can-i-authenticate-a-user-based-on-correct-incorrect-credentials-but-ignore) | troubleshooting | Authentication in django |
-| [YouTube](https://www.youtube.com/watch?v=ZxMB6Njs3ck&list=WL&index=19&t=7646s) | CRUD | tutorial for adding, viewing, updating and deleting items with django the Python|
-| [strftime](https://strftime.org) | CRUD functionality | helpful tool to format date/time from string |
 | [WhiteNoise](http://whitenoise.evans.io) | entire site | hosting static files on Heroku temporarily |
 | [Bootstrap 5.3](https://getbootstrap.com/docs/5.3/getting-started/) | entire site | responsivenes and CSS |
 
@@ -506,7 +504,7 @@ in [Shar-nm](https://github.com/shar-nm/lens-whisperer?tab=readme-ov-file) there
 
 | Source | Location | Type | Notes |
 | --- | --- | --- | --- |
-[Horilla](https://www.horilla.com/blogs/how-to-integrate-summernote-with-django/) | blogs page | image | how to integrate summernote with django in html |
+[Horilla](https://www.horilla.com/blogs/how-to-integrate-summernote-with-django/) | website | blog | how to integrate summernote with django in html |
  
 
 
