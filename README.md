@@ -483,8 +483,8 @@ in [Shar-nm](https://github.com/shar-nm/lens-whisperer?tab=readme-ov-file) there
 
 ## Credits
 
+- [Code Institute: Blog project as foundation of this project] 
 - [CI Blog](https://github.com/Code-Institute-Solutions/blog.git)
-- [Very Academy](https://www.youtube.com/@veryacademy/playlists)
 
 ### Content
 
