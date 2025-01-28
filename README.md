@@ -62,7 +62,7 @@ The Class Activity area following the lesson and note is where collaborations an
 
 
 ### Site Admin
-- As site admin I can access all the lessons, questions, answers, gradefeedback, about,  so that I can manage the site effectively
+-As site admin I can access all the lessons, questions, answers, gradefeedback, about,  so that I can manage the site effectively
  
 
 
@@ -99,9 +99,9 @@ Click here to see the Devices Wireframes
 ### Existing Features
 
 
-- **Navigation Bar**
+### **Navigation Bar**
 
-- The navigation bar is available on index and lesson_detail pages. It is fully responsive and provides links to all the areas of the website, lesson links are only presented based on whether the user is authenticated and logged in or not. Users are able to navigate on any size device with a burger menu with dropdown for small devices. users can easily click on the site logo to returnm back to the landing page.
+-The navigation bar is available on index and lesson_detail pages. It is fully responsive and provides links to all the areas of the website, lesson links are only presented based on whether the user is authenticated and logged in or not. Users are able to navigate on any size device with a burger menu with dropdown for small devices. users can easily click on the site logo to returnm back to the landing page.
 
   Desktop
 
@@ -113,14 +113,14 @@ Click here to see the Devices Wireframes
   ![image](assets/navbar-2.jpg)
 
 
-- **Landing Page**
+### **Landing Page**
 - The user can choose to create a lesson, or browse lessons (5 lessons max per page)
 
 ![image](assets/w3c/desktoptest.jpg)
 
 
 
-- **The Footer**
+### **The Footer**
 
 - The copyright declamation and links to facebook, linkedin, instagram and youtube
 
@@ -128,7 +128,7 @@ Click here to see the Devices Wireframes
 
 
 
-- **Lesson details**
+### **Lesson details**
 
 - from this simplied example 1-1, we can see the lesson author chienc currently signed in, he has put some content in lesson and his note sections.  
   ![image](assets/example-1.jpg)
@@ -155,7 +155,7 @@ Example-1-2 Then move down to class activities section, as chienc the lesson aut
 
 
 
-- **Signup**
+### **Signup**
 
 - Signup page allows the users to register and join the AmazingTutors site. 
 - This allows the user to be able to create his/her lessons or become a student only. 
@@ -167,7 +167,7 @@ Example-1-2 Then move down to class activities section, as chienc the lesson aut
 
 
 
-- **LogIn** 
+### **LogIn** 
 
 - This page allows already authenticated users to log into the site and access lessons.  
 - Users get message to let then know they are login
@@ -181,9 +181,11 @@ Example-1-2 Then move down to class activities section, as chienc the lesson aut
 
   ![image](assets/notlogin.jpg)
 
-
+### **User roles**
+-User roles are generated automatically by resource - lesson. when user created a lesson, he claims the ownership of the lesson and so he is prioritized user, whereas all other users will become students. Tutors and students would have different permits inside the lesson. 
+-The superuser can CRUD every data fields avaialbe via the admin panel  
   
-- **Create, Edit and Delete Lesson**
+### **Create, Edit and Delete Lesson**
 
 - This page is a form to create a lesson, it is only accessible to authenticated logged in users. 
 - Here the user's can edit lesson in rich format text by summernote editor and publish for visibility to all users or keep it as a draft showing as faded from the index and not visible to others  
