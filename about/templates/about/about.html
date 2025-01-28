@@ -7,9 +7,9 @@
     <div class="row">
         <div class="col-12 col-md-4 text-center">
             {% if "placeholder" in about.profile_image.url %}
-            <img src="{% static 'images/Jeff.jpg' %}" width="50%" alt="placeholder image">
+            <img src="{% static 'images/Jeff.jpg' %}" width="250" alt="placeholder image">
             {% else %}
-            <img src="{{ about.profile_image.url }}" width="50%" alt="{{ about.title }}">
+            <img src="{{ about.profile_image.url }}" width="250" alt="{{ about.title }}">
             {% endif %}
         </div>
         <div class="col-12 col-md-8">
@@ -35,7 +35,7 @@
 
             <!-- add your form here. Your submit button should 
                                 have the classes of btn, btn-secondary -->
-            <form method="POST"">
+            <form method="POST">
                 {{ collaborate_form | crispy }}
                 {% csrf_token %}
                 <button class=" btn btn-secondary" type="submit">Submit</button>

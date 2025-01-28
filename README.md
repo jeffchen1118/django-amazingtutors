@@ -347,14 +347,21 @@ I have used the recommended [HTML W3C Validator](https://validator.w3.org) to va
 
 | Directory | File | Screenshot | Notes |
 | --- | --- | --- | --- |
-| article | article-details.html |![image](https://github.com/shar-nm/lens-whisperer/assets/158847256/a053e461-7751-43cd-94c3-c4af879622a5) | |
-| article | index.html | ![image](https://github.com/shar-nm/lens-whisperer/assets/158847256/af5aa9d3-f804-43b8-b245-c4f12ba6d03d) | |
-| article | new-article.html |![image](https://github.com/shar-nm/lens-whisperer/assets/158847256/73097b72-d492-45c3-8c49-bfd1c649c799) | |
-| article | reviews.html |![image](https://github.com/shar-nm/lens-whisperer/assets/158847256/b7933854-dc4a-4a59-9618-5d81441e635c) | |
-| article | delete.html |![image](https://github.com/shar-nm/lens-whisperer/assets/158847256/779db71a-4c1b-4532-bf27-87ec47861cdb) | |
-| dashboard | dash.html |![image](https://github.com/shar-nm/lens-whisperer/assets/158847256/baf1f873-e85b-4b87-8783-ca444d99646a) | |
-| mainhub | main.html |![image](https://github.com/shar-nm/lens-whisperer/assets/158847256/dac1d13c-636e-49d4-a41c-a0d90e4e6a8a) | |
-| newsletter | news.html |![image](https://github.com/shar-nm/lens-whisperer/assets/158847256/7e14beff-bcce-44ec-a164-bc9e83d4395d) | |
+| index | index.html |![image](assets/w3c/w3cindex.jpg) | |
+| lesson details | lesson_detail.html | ![image](assets/w3c/w3clessondetail.jpg) | | 
+| create lesson | lesson_create.html |![image](assets/w3c/w3ccreatelesson.jpg) | |
+| lesson edit | lesson_edit.html |![image](assets/w3c/w3clessonedit.jpg) | |
+| create question | question_create.html |![image](assets/w3c/w3ccreatequestion.jpg) | |
+| question edit | question_edit.html |![image](assets/w3c/w3ceditquestion.jpg) | |
+| answer edit | answer_edit.html |![image](hassets/w3c/w3ceditanswer.jpg) | |
+| gradefeedback | grade_feedback.html |![image](assets/w3c/w3cgradefeedback.jpg) | |
+| about | about.html |![image](assets/w3c/w3cabout.jpg) | |
+
+###highlights of HTML test result
+   - summernote is embedded as editor in lesson_details, create lesson, edit lesson, they contains 10+ summernote related errors which is beyond scope of this project. 
+   - django can generate placeholder of YY:MM:DD in DateTimeField to trigger error in html check, also beyond scope of this project 
+   - in lesson, question or answer edit.html, the lesson_slug or question_id or answer_id is the attribute passed to the js code for provoke delete method, so has to keep it as it is. 
+   - 
 
 ### CSS
 
@@ -362,7 +369,7 @@ I have used the recommended [CSS Jigsaw Validator](https://jigsaw.w3.org/css-val
 
 | Directory | File | Screenshot | Notes |
 | --- | --- | --- | --- |
-| static | custom.css |![image](https://github.com/shar-nm/lens-whisperer/assets/158847256/38b562bf-91b9-45dc-a5cf-0ad6af8e810c) | |
+| static | custom.css |![image](assets/w3c/w3ccss.jpg) | |
 
 ### Python
 

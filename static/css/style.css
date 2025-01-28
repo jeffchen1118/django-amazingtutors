@@ -10,13 +10,13 @@ body {
 }
 
 .footer {
-    font-family: 1rem "Caveat", sans-serif;
+    font-family: "Caveat", sans-serif;
+    font-size: 1rem; 
     font-weight: 700;
     background-color: #445261;
     color: white;
     padding: 10px;
     text-align: center;
-    
 }
 
 .red-o {
@@ -224,7 +224,6 @@ body {
     border-radius: 10px;
     border: 1px solid white;
 }
-
 
 .disabled {
     pointer-events: none;
