@@ -130,15 +130,15 @@ Click here to see the Devices Wireframes
 
 - **Lesson details**
 
-- from this simplied example, can see lesson.author chienc currently login, he has put some content in lesson and note sections.  
+- from this simplied example 1-1, we can see the lesson author chienc currently signed in, he has put some content in lesson and his note sections.  
   ![image](assets/example-1.jpg)
 
 
-- Then move on into class activities section, as chienc the lesson author has submitted a test question with a due date, platform will automatically identify and label its a 'assignemnt' and display the matching background color:cyclamen to inform its role. He answered the question with another user jeffchen. lesson author can see everyone's answer for gradefeedback here. Here jeffchen and julie have submitted their answers and chienc have graded both and left feedbacks.
+Example-1-2 Then move down to class activities section, as chienc the lesson author has submitted a test question with a due date, platform will automatically identify and label its a 'assignemnt' and display the matching background color:cyclamen to make aware by other students. He answered a question from another user jeffchen. The lesson author can see everyone's answer to provide gradefeedback. Here jeffchen and julie have submitted their answers and chienc have graded and left both feedbacks.
   ![image](assets/example-2.jpg)
 
 
-- chienc also initiated an discussion question, answers of such type question will always be instantly displayed to all students, chienc can edit his question as he is the owner. chienc's question and answer color is distinquished from the students' color and his answer will always be promoted to the top spot as he is the lesson author.
+- chienc also submitted an discussion question, answers of such type question will always be instantly shared and available to all students, chienc can edit his own question as he is the owner, also chienc's question and answer color is distinquished from the students' color and his answer will always be promoted to the top spot because of his role as the lesson author.
   ![image](assets/example-3.jpg)   
 - Below chienc's discussion question, student jeffchen raised another question, the color is light blue compared to chienc's ocean blue color.
   ![image](assets/example-4.jpg)
@@ -147,7 +147,7 @@ Click here to see the Devices Wireframes
 - Here in the same lesson, we switch over to the student jeffchen's scope from the tutor chienc's. jeffchen can only raise question as he is not the lesson author aka the tutor.  
 ![image](assets/jeffchenonexample-1.jpg)
 
-- An interesting example picture, here jeffchen has answered both chienc's test assignment questions, one has been submitted but not graded, one has been graded. now jeffchen can edit the answer not graded yet. the other answer has been graded so he no longer can edit that answer. 
+- An interesting example picture, here jeffchen has answered both chienc's test assignment questions, one has been submitted but not graded, one has been graded. now jeffchen can edit the answer has not been graded yet. the other answer has been graded so he can no longer edit that answer. 
 ![image](assets/jeffchenonexample-2.jpg)
 
 - In this picture, jeffchen has answered the discussion question from the tutor and he received a grade and feedback. jeffchen also raised a discussion question and he is the question owner so he can edit both the question and answer if one provided by himself. The other student will read or answer the question only.   
