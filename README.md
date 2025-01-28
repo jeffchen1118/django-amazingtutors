@@ -513,10 +513,11 @@ in [Shar-nm](https://github.com/shar-nm/lens-whisperer?tab=readme-ov-file) there
 
 ### Acknowledgements
 
-- I would like to thank the facilitator Amy [Amy Richardson](https://github.com/amylour) for her resourceful and caring, encouragement approach with everyone and Yari also doing well taking over Amy's left at the final project stage.
+- I would like to thank the facilitator Amy [Amy Richardson](https://github.com/amylour) for her resourceful, caring, encouraging approach to everyone and Yari also doing well taking over Amy's left at the final project stage.
 - I would like to thank John, Spencer and Roo for their patient and witty guiding session with us. 
 - I would like to thank the [Code Institute](https://codeinstitute.net) tutor team for their assistance with troubleshooting and debugging some project issues.
 - I would like to thank myself who is always wanting to know and learn more and never give up to try pushing himself to climb over the boundary.
+
 
 
 
