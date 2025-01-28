@@ -10,13 +10,6 @@ from django.views.generic.edit import CreateView
 from .forms import AnswerForm, GradeFeedbackForm, LessonForm, NoteForm, QuestionForm
 from .models import Answer, GradeFeedback, Lesson, Note, Question
 
-# Create your views here.
-# class LessonCreate(CreateView):
-#     model = Lesson
-#     form_class = LessonForm
-#     template_name = "lesson/lesson_create.html"
-#     success_url = "/"
-
 
 class LessonList(generic.ListView):
     """
@@ -73,6 +66,7 @@ def lesson_detail(request, slug):
             note.body = form.cleaned_data["body"]
             note.user = request.user
             note.save()
+            messages.success(request, "Note saved successfully.")
             return redirect("lesson_detail", slug=slug)
     else:
         form = NoteForm(instance=user_note)

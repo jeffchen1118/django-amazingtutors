@@ -207,7 +207,7 @@
                     </div>
 
                     {% for answer in question.ordered_answers %}
-                    {% if user == answer.owner or user == lesson.author %}
+                    {% if user == answer.owner or user == lesson.author or question.questiontype == 0 %}
                     <div class="{% if answer.owner == lesson.author %}answerA {% else %}answerB {% endif %}">
                         <h6>{% if answer.owner == lesson.author %}Tutor {{ lesson.author }}'s answer{% else %}
                             Student

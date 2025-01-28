@@ -19,7 +19,8 @@ for (let button of deleteButtons) {
     button.addEventListener("click", (e) => {
       e.preventDefault(); // Prevents the default behavior of the button
       let lessonSlug = e.target.getAttribute("lesson_slug");
-      deleteConfirm.href = `/${lessonSlug}/lesson_delete`;
+      let answerId = e.target.getAttribute("answer_id");
+      deleteConfirm.href = `/${lessonSlug}/answer_delete/${answerId}`;
       deleteModal.show();
     });
 }

@@ -9,6 +9,16 @@ body {
     color: #4A4A4F;
 }
 
+.footer {
+    font-family: 1rem "Caveat", sans-serif;
+    font-weight: 700;
+    background-color: #445261;
+    color: white;
+    padding: 10px;
+    text-align: center;
+    
+}
+
 .red-o {
     color: #E84610;
 }
@@ -220,3 +230,4 @@ body {
     pointer-events: none;
     opacity: 0.6;
 }
+
