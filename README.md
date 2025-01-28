@@ -253,7 +253,6 @@ Example-1-2 Then move down to class activities section, as chienc the lesson aut
 
 - [![Git](https://img.shields.io/badge/Git-grey?logo=git&logoColor=F05032)](https://git-scm.com) used for version control. (`git add`, `git commit`, `git push`)
 - [![Git](https://img.shields.io/badge/GitHub-grey?logo=github&logoColor=181717)](https://github.com) used for secure online code storage.
-- [![Gitpod](https://img.shields.io/badge/Gitpod-grey?logo=gitpod&logoColor=FFAE33)](https://gitpod.io) used as a cloud-based IDE for development.
 - [![HTML](https://img.shields.io/badge/HTML-grey?logo=html5&logoColor=E34F26)](https://en.wikipedia.org/wiki/HTML) used for the main site content.
 - [![CSS](https://img.shields.io/badge/CSS-grey?logo=css3&logoColor=1572B6)](https://en.wikipedia.org/wiki/CSS) used for the main site design and layout.
 - [![Python](https://img.shields.io/badge/Python-grey?logo=python&logoColor=3776AB)](https://www.python.org) used as the back-end programming language.
@@ -281,6 +280,25 @@ Site used for ERD
 
   ![image](assets/AmazingTutorsERD.jpg)
 
+## Use of AI along the coding process  
+
+### Use AI tools to assist in code creation
+AI helps me with dissolving a complex idea into executable codes, I asked Codepilot to provide me options to resolve complex relationships between user roles, their able action and moves and which data to present to them. Codepilot is able to customize various filters to help with this requirement. 
+-AI suggest code options for me to verify and integrate into the final product.
+-There was a time when AI was struggling to see rendered html and I could provide AI further info, by looking at the correct id of a html tag for example, so AI could provide me with more accurate and effective js code to form the action I want.
+-AI provides me with some very smart and neat code to iterate through an ordered queryset of the question and answer by question type or user role, which is very impressive.
+
+### Use of AI tools to assist in debugging code
+-There is a vast number of codebases I debugged with AI's help. Like say When the DTL tags were not closed correctly or simply the page not loading and a debug error was thrown out by the Django server, I would ask AI to provide me detailed options so I can walk them through and determine which is the minimum impact and traceable route to sort the bug.  I have designed my backend model well, however, there were a few times model errors that happened AI helped me to track and suggest the correct Field definition so the code would work.   
+
+### Use AI tools to optimize code for performance and user experience
+-The AI always recognize the desired patterns and makes adequate suggestion in producing ghost scripts. In this case, it helps me to use neat and tidied-up code so my performance as a developer and my user experience is boosted by coding with the AI.
+
+### Use AI tools to create automated unit tests
+-I followed course material to use Codepilot to generate a test skeleton, however AI only suggested on first test then it stucked and preventing itself to generate more ghost scripts, so I would need to test more on this part to get clear verdict. 
+
+### Reflect on AI's role in the development process and its impact on workflow
+-AI is a great companion and assistant to help a human coder in my experience through this project. AI can't be God if human feeds it junk information. I learned questions would need to be very specific and try to narrow stuff down and guide AI to slice it into smaller problems to help get good results. All in all, the more I code with the AI, the more confident I would become and can create very interesting projects down the road. 
 
 
 ## Agile Development Process
@@ -299,7 +317,7 @@ Site used for ERD
 
 ### MoSCoW Prioritization approaches 
 
-As I am the product owner, project manager and the developer at the same time, I am actively prioritizing the product/project scope to justify time, resource and manpower to meet its MVP goal. The user stories and acceptance criterias were reshaped along the way on a daily basis, representing the communications between roles during the project to make a very realistic approach to meet the final MVP goal while maintaining quality, productivity and performance.
+As I am the product owner, project manager and developer at the same time, I am actively prioritizing the product/project scope to justify time, resource and manpower to meet its MVP goal. The user stories and acceptance criterias were reshaped along the way on a daily basis, representing the communications between roles during the project to make a very realistic approach to meet the final MVP goal while maintaining quality, productivity and performance.
 
 
 
