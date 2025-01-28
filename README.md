@@ -150,7 +150,7 @@ Example-1-2 Then move down to class activities section, as chienc the lesson aut
 - An interesting example picture, here jeffchen has answered both chienc's test assignment questions, one has been submitted but not graded, one has been graded. now jeffchen can edit the answer has not been graded yet. the other answer has been graded so he can no longer edit that answer. 
 ![image](assets/jeffchenonexample-2.jpg)
 
-- In this picture, jeffchen has answered the discussion question from the tutor and he received a grade and feedback. jeffchen also raised a discussion question and he is the question owner so he can edit both the question and answer if one provided by himself. The other student will read or answer the question only.   
+- In this picture, jeffchen has answered the discussion question from the tutor and he received a grade and feedback. jeffchen also raised a discussion question and he is the question owner so he can edit both the question and answer if its provided by himself. The other student will read or write a answer to the question only but can't edit them. 
   ![image](assets/jeffchenonexample-3.jpg)
 
 
