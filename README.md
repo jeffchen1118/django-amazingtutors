@@ -478,7 +478,7 @@ The live deployed application can be found deployed on :
 [Heroku](https://amazingtutors-3f0b6cb3b188.herokuapp.com/).
 
 The rest of steps for clone or fork this project, please refer to steps mentioned 
-in [Shar-nm](https://github.com/shar-nm/lens-whisperer?tab=readme-ov-file) there is a very detailed guide. My python ver is 3.10.12 only needs to update this version number through it. 
+in [Shar-nm](https://github.com/shar-nm/lens-whisperer?tab=readme-ov-file) there is a very comprehensive guide. My python ver is 3.10.12 so only needs to update this version number when through it.
 
 
 ## Credits
