@@ -497,8 +497,119 @@ The live deployed application can be found deployed on :
 
 [Heroku](https://amazingtutors-3f0b6cb3b188.herokuapp.com/).
 
-The rest of steps for clone or fork this project, please refer to steps mentioned 
-in [Shar-nm](https://github.com/shar-nm/lens-whisperer?tab=readme-ov-file) there is a very comprehensive guide. My python ver is 3.10.12 so only needs to update this version number when through it.
+### PostgreSQL Database
+The project's database is obtained and hosted via [Code Institute PostgreSQL Database](https://dbs.ci-dbs.net/)
+
+Then add below to the end of your env.py which would not be found in Github repository. 
+os.environ["DATABASE_URL"] = (
+    "Your DATABASE_URL" 
+)
+
+> [!Important]
+> - PostgreSQL Databases by Code Institute are only available to CI students.
+> - If you plan to clone/fork this repository, you must acquire your own database instance. 
+> - PostgreSQL Databasees by Post Insittute allow maximum of 8 instances per each student.
+> - Created databases are subject to delection after 18 months.   
+> The DATABASE_URL value would be stored into **Config Vars** on Heroku. 
+
+### Cloudinary API KEY
+
+This project support the use of the [Cloudinary API](https://cloudinary.com) to store lesson images online if you would like to make a unique image to present the lesson in the lessons list.
+
+To obtain a Cloudinary API key, create an account and log in.
+- For *Primary interest*, you can choose *Programmable Media for image and video API*.
+- click on setting icon to get to the contrrol dashboard, you would find your **API Keys**.
+- Be sure to remove the `CLOUDINARY_URL=` as part of the API **value**; this is the **key**. 
+> [!Attention] This **key** would be stored into **config Vars** on Heroku. 
+
+Then add below to the end of your env.py which would not be found in Github repository. 
+os.environ["CLOUDINARY_URL"] = (
+    "Your Cloudinary API key")
+
+- Then you can upload lesson's header images to cloudinary which would be found from assets - media library there. When up to use the image to modify a lesson header image on the AmazingTutors website, you would copy the **delivery URL** from the souce image on the Cloudinary, then you would need to signin as the admin on AmazingTutors then go to [site admin](https://amazingtutors-3f0b6cb3b188.herokuapp.com/admin/) where you can update the lesson header image by choose file, put the copied **delivery URL** to replace the placeholder image.      
+
+
+### Heroku Deployment
+
+[Heroku](https://www.heroku.com) is used to host the website, 
+
+Deployment steps are as follows, after account setup:
+
+- Select **New** in the top-right corner of your Heroku Dashboard, and select **Create new app** from the dropdown menu.
+- Your app name must be unique, and then choose a region closest to you (EU or USA), and finally, select **Create App**.
+- From the new app **Settings**, click **Reveal Config Vars**, and set your environment variables.
+
+> [!IMPORTANT]  
+> This is a sample only; you would replace the values with your own if cloning/forking my repository.
+
+| Key | Value |
+| --- | --- |
+| `CLOUDINARY_URL` | user's own value |
+| `DATABASE_URL` | user's own value |
+| `SECRET_KEY` | user's own value |
+
+Heroku needs three additional files in order to deploy properly.
+
+- requirements.txt
+- Procfile
+- runtime.txt
+
+You can install this project's **requirements** (where applicable) using:
+
+- `pip3 install -r requirements.txt`
+
+If you have your own packages that have been installed, then the requirements file needs updated using:
+
+- `pip3 freeze --local > requirements.txt`
+
+The **Procfile** can be created with the following command:
+
+- `echo web: gunicorn app_name.wsgi > Procfile`
+- *replace **app_name** with the name of your primary Django app name; the folder where settings.py is located*
+
+The **runtime.txt** file needs to know which Python version you're using:
+1. type: `python3 --version` in the terminal.
+2. in the **runtime.txt** file, add your Python version:
+	- `python-3.10.12`
+
+[!important] 
+> - When creating your heroku app environment you sould associate it with your GitHub project which can be cloned or forked from this repository, before the app deployment to Heroku. Once the prodject has been associated and **Config Vars** settings are correct, you can click **deploy branch** to deploy it and run the website from there.   
+
+### Local Deployment
+
+This project can be cloned or forked in order to make a local copy on your own system.
+
+For either method, you will need to install any applicable packages found within the *requirements.txt* file.
+
+- `pip3 install -r requirements.txt`.
+
+You will need to create a new file called `env.py` at the root-level,
+and include the same environment variables listed above from the Heroku deployment steps.
+
+> [!IMPORTANT]  
+> This is a sample only; you would replace the values with your own if cloning/forking my repository.
+
+Sample `env.py` file:
+
+```python
+import os
+
+os.environ("CLOUDINARY_URL", "user's own value")
+os.environ("DATABASE_URL", "user's own value")
+os.environ("SECRET_KEY", "user's own value")
+
+# local environment only (do not include these in production/deployment!)
+os.environ.setdefault("DEBUG", "True")
+```
+
+Once the project is cloned or forked, in order to run it locally, you'll need to follow these steps:
+
+- Start the Django app: `python3 manage.py runserver`
+- Stop the app once it's loaded: `CTRL+C` or `⌘+C` (Mac)
+- Make any necessary migrations: `python3 manage.py makemigrations`
+- Migrate the data to the database: `python3 manage.py migrate`
+- Create a superuser: `python3 manage.py createsuperuser`
+- Everything should be ready now, so run the Django app again: `python3 manage.py runserver`
 
 
 ## Credits
