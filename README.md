@@ -573,11 +573,11 @@ The **runtime.txt** file needs to know which Python version you're using:
 	- `python-3.10.12`
 
 [!important] 
-> - When creating your heroku app environment you sould associate it with your GitHub project which can be cloned or forked from this repository, before the app deployment to Heroku. Once the prodject has been associated and **Config Vars** settings are correct, you can click **deploy branch** to deploy it and run the website from there.   
+> - When creating your heroku app environment you sould associate it with your GitHub project which can be cloned or forked from this repository before starting the app deployment to Heroku. Once the prodject has been associated and **Config Vars** settings are correct, you can click **deploy branch** to deploy it and run the website from your heroku app environment.   
 
 ### Local Deployment
 
-This project can be cloned or forked in order to make a local copy on your own system.
+This project can be cloned or forked in order to make a local copy on your own system and run tests on the local server. 
 
 For either method, you will need to install any applicable packages found within the *requirements.txt* file.
 
