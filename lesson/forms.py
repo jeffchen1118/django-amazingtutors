@@ -31,7 +31,8 @@ class NoteForm(forms.ModelForm):
 class QuestionForm(forms.ModelForm):
     class Meta:
         model = Question
-        fields = ["body", "preset_answer", "questiontype", "due_date"]  # Always include due_date
+        # Always include due_date
+        fields = ["body", "preset_answer", "questiontype", "due_date"]  
         widgets = {
             "body": Textarea(attrs={"rows": 4, "cols": 30}),
             "preset_answer": Textarea(attrs={"rows": 4, "cols": 30}),

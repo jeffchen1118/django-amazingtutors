@@ -392,7 +392,8 @@ I have used the recommended [CSS Jigsaw Validator](https://jigsaw.w3.org/css-val
 
 ### Python
 
-I have used the recommended [PEP8 CI Python Linter](https://pep8ci.herokuapp.com) to validate all of my Python files.
+I have used the recommended [PEP8 CI Python Linter](https://pep8ci.herokuapp.com) to validate all of my Python files. 
+A Note for CI examiner, as the 80 characters length restraint was set in old days I'll choose to leave them as they are now, as most editor can display > 80 characters correctly in modern displays so the code won't look too hideous to read.     
 
 | APP | File | CI URL |
 | --- | --- | --- |
