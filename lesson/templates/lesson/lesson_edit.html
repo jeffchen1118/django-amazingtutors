@@ -3,7 +3,7 @@
 {% load crispy_forms_tags %}
 
 {% block content %}
-{% if user.is_authenticated and user == lesson.owner %}
+{% if user.is_authenticated and user == lesson.author %}
 <div class="container">
 
     <div class="row justify-content-center">
