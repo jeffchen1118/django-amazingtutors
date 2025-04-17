@@ -6,6 +6,7 @@
 {% load tz %}
 {% now "U" as current_time %}
 
+{%if user.is_authenticated %}
 <div class="masthead">
     <div class="container">
         <div class="row g-0">
@@ -250,6 +251,16 @@
 
 
         </div>
+        {% else %}
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-12 col-md-6 text-center">
+                    <h3>You need to be logged in to see the lesson's details.</h3>
+                    <p>Please log in or register to continue.</p>
+                </div>
+            </div>
+        </div>
+        {% endif %}
 
 
         {% endblock content %}
