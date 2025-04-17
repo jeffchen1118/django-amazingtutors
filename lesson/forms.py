@@ -31,24 +31,21 @@ class NoteForm(forms.ModelForm):
 class QuestionForm(forms.ModelForm):
     class Meta:
         model = Question
-        fields = ["body", "preset_answer", "questiontype"]
+        fields = ["body", "preset_answer", "questiontype", "due_date"]  # Always include due_date
         widgets = {
             "body": Textarea(attrs={"rows": 4, "cols": 30}),
             "preset_answer": Textarea(attrs={"rows": 4, "cols": 30}),
+            "due_date": forms.DateTimeInput(
+                attrs={"type": "datetime-local", "placeholder": "YYYY-MM-DD HH:MM"}
+            ),
         }
 
     def __init__(self, *args, **kwargs):
         self.user = kwargs.pop("user", None)
         self.lesson = kwargs.pop("lesson", None)
         super().__init__(*args, **kwargs)
-        if self.user == self.lesson.author:
-            self.fields["due_date"] = forms.DateTimeField(
-                widget=forms.DateTimeInput(
-                    attrs={"type": "datetime-local", "placeholder": "YYYY-MM-DD HH:MM"}
-                ),
-                required=False,
-            )
         if self.user != self.lesson.author:
+            self.fields.pop("due_date")  # Remove due_date for non-authors
             self.fields["questiontype"].choices = [
                 choice for choice in QUESTIONTYPES if choice[0] == 0
             ]
